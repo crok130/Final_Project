@@ -7,9 +7,9 @@ import lombok.Data;
 @Data
 public class MessageVO {
 
-	private String message_id;
-	private String chat_id;
-	private String sender_id;
+	private int message_id;
+	private int chat_id;
+	private int sender_id;
 	private String content;
 	private Date timestamp;
 	private boolean is_read;

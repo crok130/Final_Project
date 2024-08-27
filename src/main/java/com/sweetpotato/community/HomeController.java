@@ -48,4 +48,29 @@ public class HomeController {
 	public String write() {
 		return "write";
 	}
+	
+	@RequestMapping(value = "search", method = RequestMethod.GET)
+	public String search() {
+		return "search";
+	}
+	
+	@RequestMapping(value = "trade_board", method = RequestMethod.GET)
+	public String trade_board() {
+		return "trade_board";
+	}
+	
+	@RequestMapping(value = "profile", method = RequestMethod.GET)
+	public String profile() {
+		return "profile";
+	}
+	
+	@RequestMapping(value = "mypage2", method = RequestMethod.GET)
+	public String mypage2() {
+		return "mypage2";
+	}
+	
+	@RequestMapping(value = "mypage", method = RequestMethod.GET)
+	public String mypage() {
+		return "mypage";
+	}
 }
