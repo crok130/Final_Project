@@ -1,4 +1,4 @@
-package com.sweetpotato.chat;
+package com.sweetpotato.chat.vo;
 
 import java.util.Date;
 
