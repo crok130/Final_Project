@@ -13,5 +13,7 @@ public class BoardVO {
 	private String boardimg;
 	private String boardtitle;
 	private String boardcontent;
+	private int view;
+	private String region;
 	
 }
