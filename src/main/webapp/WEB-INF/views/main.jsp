@@ -83,30 +83,32 @@
   <div>
     
     <!-- 네번째 섹션 -->
-    <div class="content-box trade-info-section">
+   <div class="content-box trade-info-section">
       <div class="container trade-section">
         <h1>중고거래 인기매물</h1>
         <div class="full-box trade-box">
           <div class="flex-box full-box card-container between">
             <div class="card-box">
-              <a href="#" class="trade-text-link">
-                <div class="card-img">
+              <a href="trade_board" class="trade-text-link">
+                <!-- img -->
+                <div class="card-img"> 
+                    <img src="resources/img/ra.PNG" alt="">
                 </div>
-             	<div class="card-info-box">
-                  <p class="bold"></p>
+
+                <!-- info -->
+                <div class="card-info-box">
+                  <h5>라탄팝니다</h5>
+                  <p class="bold">20000원</p>
+                  <p>부산수영구</p>
                   <div class="flex-box">
-                    <p>조회 </p>
-                    <hr/>
-                    <p>채팅 </p>
+                    <p>조회 40</p>
+                    <p>·</p>
+                    <p>채팅 30</p>
                   </div>
-             </div>
+                </div>
               </a>
             </div>
           </div>
-          <a href="#">인기매물 더 보기</a>
-        </div>
-      </div>
-    </div>
     <%@ include file="footer.jsp" %>
 </body>
 </html>
