@@ -30,7 +30,7 @@
             <div id="profile-image">
                     <img alt="동동히" src="https://d1unjqcospf8gs.cloudfront.net/assets/users/default_profile_80-c649f052a34ebc4eee35048815d8e4f73061bf74552558bb70e07133f25524f9.png" />
             </div>
-                <a href="#" >
+                <a href="profile" >
                     <button id="edit-profile-button">프로필 수정하기</button>
                 </a>
         </section>

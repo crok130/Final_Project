@@ -64,10 +64,6 @@ public class HomeController {
 		return "profile";
 	}
 	
-	@RequestMapping(value = "mypage2", method = RequestMethod.GET)
-	public String mypage2() {
-		return "mypage2";
-	}
 	
 	@RequestMapping(value = "mypage", method = RequestMethod.GET)
 	public String mypage() {
