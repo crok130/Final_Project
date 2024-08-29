@@ -32,11 +32,11 @@
       <div class="container">
           <div class="about-trade">
             <div class="container">
-              <form class="write-box" method="POST" action="" enctype="multipart/form-data">
+              <form class="write-box" method="POST" action="write">
                 <div class="flex-box">
                   <label class="img-upload">
                     <img src="" alt="이미지를 추가해주세요" id="imagePreview">
-                    <input type="file" name="images" accept="image/*" style="display: none;" onchange="previewImage(event);">
+                    <input type="file" name="img" accept="image/*" style="display: none;" onchange="previewImage(event);">
                   </label>
                   <div>
                     <div class="flex-box column baseline title-box">
@@ -67,14 +67,11 @@
                   <input type="text" name="region" placeholder="거래를 희망하는 장소" required="required" value="">
                 </div>
                 <div class="submit-button-box">
-
                     <button type="submit">수정하기</button>
                     <button type="submit">전송</button>
                 </div>
               </form>
             </div>
           </div>
-
-        <script type="text/javascript" src="{% static 'js/write.js' %}"></script>
 </body>
 </html>

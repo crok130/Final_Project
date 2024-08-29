@@ -4,14 +4,18 @@ package com.sweetpotato.board.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.sweetpotato.board.service.BoardService;
 import com.sweetpotato.board.vo.BoardVO;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 public class BoardController {
 
+	private final BoardService bs;
+	
 	@GetMapping("write")
 	public void write() throws Exception {
 		
@@ -30,6 +34,14 @@ public class BoardController {
 	@GetMapping("trade_board")
 	public String trade_board() throws Exception{
 		return "trade_board";
+	}
+	
+	@PostMapping("write")
+	public String write(BoardVO vo) throws Exception{
+		System.out.println(vo);
+		String message = bs.regist(vo);
+		System.out.println(message);
+		return "redirect:/trade";
 	}
 	
 	

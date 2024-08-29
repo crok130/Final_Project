@@ -1,5 +1,7 @@
-create schema sweetpotato;
 
+
+create schema sweetpotato;
+select * from board;
 create table member(
 	memberno int primary key auto_increment,
     memberid varchar(200) not null unique,
@@ -10,16 +12,19 @@ create table member(
     memberemail varchar(200) not null unique,
     memberaddr varchar(200)
 );
-
+alter table board add column region varchar(50);
+INSERT INTO sweetpotato.board ('memberno', 'category', 'price', 'title', 'content', 'region') VALUES ('1', '23', '23', '23', '23', '23');
 create table board(
 	boardno int primary key auto_increment,
     memberno int,
-    boardcategory varchar(200),
-    boardprice int,
-    status enum ('판매중','판매완료','나눔') not null,
-    boardimg varchar(200),
-    boardtitle varchar(200) not null,
-    boardcontent text,
+    category varchar(200),
+    price int,
+    status enum ('판매중','판매완료','나눔') default '판매중',
+    img varchar(200),
+    title varchar(200) not null,
+    content text,
+    region varchar(50),
+    viewcnt int,
     foreign key (memberno) REFERENCES member (memberno)
 );
 

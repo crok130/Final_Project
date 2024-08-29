@@ -7,13 +7,13 @@ public class BoardVO {
 
 	private int boardno;
 	private String memberno;
-	private String boardcategory;
-	private int boardprice;
+	private String category;
+	private int price;
 	private String status;
-	private String boardimg;
-	private String boardtitle;
-	private String boardcontent;
-	private int view;
+	private String img;
+	private String title;
+	private String content;
+	private int viewcnt;
 	private String region;
 	
 }

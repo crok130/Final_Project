@@ -22,8 +22,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.sweetpotato.community" />
-	
+	<context:component-scan base-package="com.sweetpotato.board.service" />
 	<context:component-scan base-package="com.sweetpotato.board.controller" />
-	
 	
 </beans:beans>
