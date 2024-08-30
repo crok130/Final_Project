@@ -7,7 +7,8 @@ public class BoardVO {
 
 	private int boardno;
 	private String memberno;
-	private String category;
+	private String main_category;
+	private String sub_category;
 	private int price;
 	private String status;
 	private String img;

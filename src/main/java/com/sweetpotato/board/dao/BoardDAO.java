@@ -14,7 +14,7 @@ public interface BoardDAO {
 	 * @return 등록된 게시글 개수를 수로 반환
 	 */
 	
-	@Insert("INSERT INTO board(memberno,category,price,img,title,content,region) VALUES( 1, #{category}, #{price}, #{img}, #{title}, #{content}, #{region})")
+	@Insert("INSERT INTO board(memberno,main_category,sub_category,price,img,title,content,region) VALUES( 1, #{main_category}, #{sub_category}, #{price}, #{img}, #{title}, #{content}, #{region})")
 	
 	int create(BoardVO vo)throws Exception;
 	
