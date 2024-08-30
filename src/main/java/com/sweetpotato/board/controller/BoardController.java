@@ -44,6 +44,9 @@ public class BoardController {
 		return "redirect:/trade";
 	}
 	
-	
+	@GetMapping("dd")
+	public String dd() throws Exception{
+		return "dd";
+	}
 
 }

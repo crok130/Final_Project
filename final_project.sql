@@ -13,7 +13,7 @@ create table member(
     memberaddr varchar(200)
 );
 alter table board add column region varchar(50);
-INSERT INTO sweetpotato.board ('memberno', 'category', 'price', 'title', 'content', 'region') VALUES ('1', '23', '23', '23', '23', '23');
+ INTO sweetpotato.board ('memberno', 'category', 'price', 'title', 'content', 'region') VALUES ('1', '23', '23', '23', '23', '23');
 create table board(
 	boardno int primary key auto_increment,
     memberno int,

@@ -32,7 +32,7 @@
       <div class="container">
           <div class="about-trade">
             <div class="container">
-              <form class="write-box" method="POST" action="write">
+              <form class="write-box" method="POST" action="writew">
                 <div class="flex-box">
                   <label class="img-upload">
                     <img src="" alt="이미지를 추가해주세요" id="imagePreview">
