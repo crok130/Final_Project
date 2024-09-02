@@ -1,5 +1,7 @@
 package com.sweetpotato.board.vo;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -17,4 +19,5 @@ public class BoardVO {
 	private int viewcnt;
 	private String region;
 	
+
 }

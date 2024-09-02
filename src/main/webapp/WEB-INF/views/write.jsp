@@ -157,38 +157,32 @@
 
             <!-- 이미지 업로드 섹션 -->
             <div class="image-upload-section">
-                <button type="button" class="image-upload-btn" onclick="uploadImage()">이미지 등록</button>
-                <input id="image-uploader" type="file" style="display: none;" multiple onchange="previewImages()" />
+                <button type="button" class="image-upload-btn" onclick="document.getElementById('image-uploader').click()">이미지 등록</button>
+                <input id="image-uploader" type="file" style="display: none;" multiple onchange="previewImages(event)" />
                 <input type="hidden" id="image-data" name="img" value="" />
+                <div id="image-preview"></div>
             </div>
-            
-            <script>
-                // 이미지 업로드 버튼 클릭 시 파일 선택창 열기
-                function uploadImage() {
-                    document.getElementById("image-uploader").click();
-                }
-            
-                // 파일 선택 후 이미지를 미리보기하고 Base64 인코딩하여 JSON으로 저장
-                function previewImages() {
-                    const files = document.getElementById("image-uploader").files;
-                    const reader = new FileReader();
-                    const images = [];
-            
-                    if (files.length > 0) {
-                        Array.from(files).forEach((file, index) => {
-                            reader.onloadend = () => {
-                                images.push(reader.result);
-                                if (index === files.length - 1) {
-                                    // 모든 파일이 읽힌 후 서버에 JSON 형식으로 전송
-                                    document.getElementById('image-data').value = JSON.stringify(images);
-                                }
-                            };
-                            reader.readAsDataURL(file); // 파일을 Base64로 인코딩
-                        });
-                    }
-                }
-            </script>
-
+    <script>
+	    function previewImages(event) {
+	        var files = event.target.files;
+	        var preview = document.getElementById('image-preview');
+	        preview.innerHTML = "";
+	
+	        for (var i = 0; i < files.length; i++) {
+	            var file = files[i];
+	            var reader = new FileReader();
+	            reader.onload = function(e) {
+	                var img = document.createElement('img');
+	                img.src = e.target.result;
+	                img.style.width = "100px";
+	                img.style.height = "100px";
+	                img.style.margin = "10px";
+	                preview.appendChild(img);
+	            }
+	            reader.readAsDataURL(file);
+	        }
+	    }
+	</script>
             <!-- 제목 입력 -->
             <div class="input-group">
                 <label for="title">제목*</label>
@@ -287,5 +281,24 @@
             </div>
         </form>
     </div>
+    <script>
+        function submitForm() {
+            var form = document.getElementById('boardForm');
+            var formData = new FormData(form);
+
+            // AJAX 요청
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "write", true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    alert("등록 완료!");
+                    window.location.href = "/trade";
+                } else {
+                    alert("등록 실패: " + xhr.responseText);
+                }
+            };
+            xhr.send(formData);
+        }
+	</script>
 </body>
 </html>
