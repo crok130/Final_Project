@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	Mapper : 
+	SQL문을 정의하고 그결과를 정의해놓은 모델에 매핑시키는 방식에서 사용하는 것
+	SQL문(xml)을 method(or java 객체)로 매핑 시켜주는 것을 의미
+ -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="memberMapper">
+	<insert id="create"
+			statementType="PREPARED"
+			parameterType="com.sweetpotato.member.vo.MemberVO">
+		INSERT INTO member
+		VALUES(null, #{memberid}, #{memberpass}, #{membername}, #{memberbirth}, #{memberphone}, #{memberemail}, #{memberaddr})
+	</insert>
+	<select id="readMember" parameterType="String" resultType="com.sweetpotato.member.vo.MemberVO">
+		SELECT * FROM member WHERE memberid = #{memberid}
+	</select>
+	
+	<select id="memberList" resultType="com.sweetpotato.member.vo.MemberVO">
+		SELECT * FROM member ORDER BY membername DESC
+	</select>
+</mapper>
