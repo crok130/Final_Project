@@ -46,6 +46,11 @@
 		};
 		xhr.send("authCode=" + authCode);
 	}
+	function handleFormSubmit(event){
+		event.preventDefault();
+		alert("회원가입이 완료되었습니다.\n고구마 마켓의 회원이 되신것을 진심으로 환영합니다.")
+		window.location.href = "login.jsp";
+	}
 </script>
 </head>
 <body>
