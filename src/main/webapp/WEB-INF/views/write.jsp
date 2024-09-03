@@ -151,17 +151,17 @@
 <body>
     <header><%@ include file="nav.jsp" %></header>
     <div id="container">
-        <form action="write" method="post" enctype="multipart/form-data">
+        <form id="boardForm" enctype="multipart/form-data">
             <h2 class="editor-title">팔래요 등록하기</h2>
             <p class="editor-sub-title">썸네일을 포함한 이미지를 1장 이상 업로드 해주세요. (최대 5장)</p>
 
             <!-- 이미지 업로드 섹션 -->
             <div class="image-upload-section">
+            	<div id="image-preview"></div>
                 <button type="button" class="image-upload-btn" onclick="document.getElementById('image-uploader').click()">이미지 등록</button>
-                <input id="image-uploader" type="file" style="display: none;" multiple onchange="previewImages(event)" />
-                <input type="hidden" id="image-data" name="img" value="" />
-                <div id="image-preview"></div>
+                <input id="image-uploader" type="file" name="img" style="display: none;" multiple onchange="previewImages(event)" />
             </div>
+
     <script>
 	    function previewImages(event) {
 	        var files = event.target.files;
@@ -276,29 +276,34 @@
 
             <!-- 버튼 섹션 -->
             <div class="button-container">
-                <button type="submit" class="submit-btn">등록하기</button>
+                <button type="submit" class="submit-btn" onclick="submitForm(event)">등록하기</button>
                 <button type="button" class="cancel-btn">취소하기</button>
             </div>
         </form>
     </div>
-    <script>
-        function submitForm() {
-            var form = document.getElementById('boardForm');
-            var formData = new FormData(form);
+<script>
+    function submitForm(event) {
+        event.preventDefault();  // 폼의 기본 제출 동작을 막습니다.
 
-            // AJAX 요청
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "write", true);
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    alert("등록 완료!");
-                    window.location.href = "/trade";
-                } else {
-                    alert("등록 실패: " + xhr.responseText);
-                }
-            };
-            xhr.send(formData);
-        }
-	</script>
+        var form = document.getElementById('boardForm');
+        var formData = new FormData(form);
+
+        // AJAX 요청 생성
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "write", true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                alert("등록 완료!");
+                window.location.href = "trade";
+            } else {
+                alert("등록 실패");
+            }
+        };
+        xhr.onerror = function() {
+            alert("서버와의 통신 중 오류가 발생했습니다.");
+        };
+        xhr.send(formData);
+    }
+</script>
 </body>
 </html>

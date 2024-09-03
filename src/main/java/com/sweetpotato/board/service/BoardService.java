@@ -1,5 +1,7 @@
 package com.sweetpotato.board.service;
 
+import java.util.List;
+
 import com.sweetpotato.board.vo.BoardVO;
 
 public interface BoardService {
@@ -17,4 +19,12 @@ public interface BoardService {
 	 * @param bno 조회수 증가 시킬 게시글 번호
 	 */
 	void updateCnt(int bno) throws Exception;
+	
+	/**
+	 * 게시글 전체 목록 페이지
+	 * 
+	 * @return 전체 게시글 목록을 리스트로 반환
+	 */
+	List<BoardVO> listAll() throws Exception;
+
 }

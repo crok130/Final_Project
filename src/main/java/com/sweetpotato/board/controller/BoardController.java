@@ -1,12 +1,20 @@
 package com.sweetpotato.board.controller;
 
+
+
 import java.io.File;
 import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sweetpotato.board.service.BoardService;
@@ -19,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class BoardController {
 
     private final BoardService bs;
+    private final ServletContext servletContext; 
 
     @GetMapping("write")
     public void write() throws Exception {
@@ -26,106 +35,62 @@ public class BoardController {
     }
 
     @GetMapping("trade")
-    public String trade() throws Exception{
-    	return "trade";
+    public String trade(Model model) throws Exception {
+        List<BoardVO> popularItems = bs.listAll(); // 모든 데이터를 가져옵니다. 실제로는 인기매물 필터링이 필요할 수도 있습니다.
+        model.addAttribute("popularItems", popularItems);
+        return "trade";
     }
-    
+
     // 게시글 작성 받는 post매핑
-    /*
     @PostMapping("write")
-    public String createBoard(
-            @RequestParam(value = "img", required = false) List<MultipartFile> img,
-            @RequestParam("main_category") String mainCategory,
-            @RequestParam("sub_category") String subCategory,
-            @RequestParam("price") int price,
-            @RequestParam("status") String status,
-            @RequestParam("title") String title,
-            @RequestParam("content") String content,
-            @RequestParam("region") String region) throws Exception {
+    public void write(@RequestParam("title") String title,
+                      @RequestParam("price") int price,
+                      @RequestParam("status") String status,
+                      @RequestParam("main_category") String mainCategory,
+                      @RequestParam("sub_category") String subCategory,
+                      @RequestParam("content") String content,
+                      @RequestParam("region") String region,
+                      @RequestPart("img") List<MultipartFile> multipartFile,
+                      HttpServletResponse response) throws Exception {
 
-        // BoardVO 객체 생성 및 필드 설정
-        BoardVO vo = new BoardVO();
-        vo.setMain_category(mainCategory);
-        vo.setSub_category(subCategory);
-        vo.setPrice(price);
-        vo.setStatus(status);
-        vo.setTitle(title);
-        vo.setContent(content);
-        vo.setRegion(region);
+        // 동적으로 파일 저장 경로 설정
+        String path = servletContext.getRealPath("\\resources\\imgs\\");
 
-        // 이미지 처리
-        if (img != null && !img.isEmpty()) {
-            String uploadDir = "C:/upload/images/";
-            File directory = new File(uploadDir);
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
 
-            List<String> imgPaths = new ArrayList<>();
-            
-            for (MultipartFile image : img) {
-                if (!image.isEmpty()) {
-                    String originalFileName = image.getOriginalFilename();
-                    String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
-                    String uniqueFileName = UUID.randomUUID().toString() + "_" + originalFileName;
-                    Path filePath = Paths.get(uploadDir + uniqueFileName);
-                    
-                    try {
-                        image.transferTo(new File(filePath.toString()));
-                        imgPaths.add(uniqueFileName);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return "FAILED";
-                    }
-                }
-            }
-            
-        }
-        // 게시글 등록 처리
-        String result = bs.regist(vo);
+        BoardVO boardVO = new BoardVO();
+        boardVO.setTitle(title);
+        boardVO.setPrice(price);
+        boardVO.setStatus(status);
+        boardVO.setMain_category(mainCategory);
+        boardVO.setSub_category(subCategory);
+        boardVO.setContent(content);
+        boardVO.setRegion(region);
 
-        return "redirect:/trade";
+        // 파일 저장 로직
+        if (!multipartFile.isEmpty()) {
+            StringBuilder imgPaths = new StringBuilder();
+            for (MultipartFile mpr : multipartFile) {
+                String orgFilename = mpr.getOriginalFilename();
+                
+                String uniqueFilename = UUID.randomUUID().toString() + "_" + orgFilename;
 
-    }
-    */
-    @PostMapping("write")
-    public String write(@RequestParam(value = "img", required = false) List<MultipartFile> img,
-                        @RequestParam("main_category") String mainCategory,
-                        @RequestParam("sub_category") String subCategory,
-                        @RequestParam("price") int price,
-                        @RequestParam("status") String status,
-                        @RequestParam("title") String title,
-                        @RequestParam("content") String content,
-                        @RequestParam("region") String region) throws Exception {
-
-        BoardVO vo = new BoardVO();
-        vo.setMain_category(mainCategory);
-        vo.setSub_category(subCategory);
-        vo.setPrice(price);
-        vo.setStatus(status);
-        vo.setTitle(title);
-        vo.setContent(content);
-        vo.setRegion(region);
-
-        String path = "c:\\Repository\\file\\";  // 실제 파일 저장 경로
-        StringBuilder imgPaths = new StringBuilder();  // 이미지 경로를 저장할 StringBuilder
-
-        if (img != null && !img.isEmpty()) {
-            for (MultipartFile mpr : img) {
-                String originalFilename = mpr.getOriginalFilename();
-                File targetFile = new File(path + originalFilename);
+                // 대상 파일 생성
+                File targetFile = new File(path + uniqueFilename);
                 mpr.transferTo(targetFile);
 
-                imgPaths.append(originalFilename).append(";");
-                System.out.println("Uploaded file: " + targetFile);
+                imgPaths.append(targetFile.getPath()).append(",");
             }
+            // 이미지 경로 설정
+            boardVO.setImg(imgPaths.substring(0, imgPaths.length() - 1)); // 마지막 ',' 제거
         }
 
-        vo.setImg(imgPaths.toString());  // 이미지 경로를 ';'로 구분하여 VO에 저장
-        bs.regist(vo);
+       
+        System.out.println("BoardVO: " + boardVO);
 
-        return "redirect:/trade";
+        
+        bs.regist(boardVO);
+
     }
-
+    
 
 }

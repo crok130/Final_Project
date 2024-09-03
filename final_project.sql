@@ -1,7 +1,4 @@
-
-
 create schema sweetpotato;
-select * from board;
 create table member(
 	memberno int primary key auto_increment,
     memberid varchar(200) not null unique,

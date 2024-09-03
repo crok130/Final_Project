@@ -1,5 +1,7 @@
 package com.sweetpotato.board.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.sweetpotato.board.dao.BoardDAO;
@@ -23,6 +25,11 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void updateCnt(int bno) throws Exception {
 		
+	}
+	
+	@Override
+	public List<BoardVO> listAll() throws Exception {
+		return dao.listAll();
 	}
 
 }
