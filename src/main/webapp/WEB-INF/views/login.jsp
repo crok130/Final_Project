@@ -13,26 +13,37 @@
     <link rel="stylesheet" type="text/css" href="resources/css/login.css"/>
     <title>로그인</title>
 </head>
-<body>
-  <body class="back-ye">
+<body class="back-ye">
     <%@ include file="nav.jsp" %>
     <div class="container">
-      <div class="login-container">
-        <form method="post" class="login-form">
-          <div>
-            <label for="username" class="login-label">아이디</label>
-            <input type="text" id="username" name="username" class="login-input" required>
-          </div>
-          <div>
-            <label for="password" class="login-label">비밀번호</label>
-            <input type="password" id="password" name="password" class="login-input" required>
-          </div>
-          <button type="submit" class="login-button">로그인</button>
-        </form>
-        <p class="register-reco">
-          고구마마켓 회원이 아니신가요?
-          <a href="register" class="bold">회원가입</a>
-        </p>
-      </div>
+        <div class="login-container">
+            <form method="post" class="login-form">
+                <div>
+                    <label for="username" class="login-label">아이디</label>
+                    <input type="text" id="username" name="username" class="login-input" required>
+                </div>
+                <div>
+                    <label for="password" class="login-label">비밀번호</label>
+                    <input type="password" id="password" name="password" class="login-input" required>
+                </div>
+
+                <!-- 자동 로그인 체크박스와 비밀번호 찾기 링크를 같은 줄에 배치 -->
+                <div class="login-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe" name="rememberMe" class="login-checkbox">
+                        <label for="rememberMe" class="login-checkbox-label">자동 로그인</label>
+                    </div>
+                    <a href="forgotPassword" class="login-forgot-link">비밀번호 찾기</a>
+                </div>
+
+                <button type="submit" class="login-button">로그인</button>
+            </form>
+            <p class="register-reco">
+                고구마마켓 회원이 아니신가요?
+                <a href="register" class="bold">회원가입</a>
+            </p>
+        </div>
     </div>
+    <%@ include file="footer.jsp" %>
+</body>
 </html>
