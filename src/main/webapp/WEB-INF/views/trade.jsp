@@ -45,10 +45,10 @@
             <c:forEach var="item" items="${popularItems}">
               <div class="card-box infinite-item">
                 <!--로그인 된 유저라면-->
-                <a href="#" class="trade-text-link">
+                <a href="" class="trade-text-link">
                     <div class="card-img">
 
-                            <img src="${item.img}" alt="상품이미지">
+                            <img src="${pageContext.request.contextPath}/resources/imgs/${item.img}" alt="상품이미지">
 
                     </div>
                     <div class="card-info-box">

@@ -32,4 +32,11 @@ public class BoardServiceImpl implements BoardService{
 		return dao.listAll();
 	}
 
+	@Override
+	public BoardVO read(int boardno) throws Exception {
+		return dao.read(boardno);
+	}
+	
+
+
 }

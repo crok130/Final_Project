@@ -26,5 +26,7 @@ public interface BoardService {
 	 * @return 전체 게시글 목록을 리스트로 반환
 	 */
 	List<BoardVO> listAll() throws Exception;
-
+	
+	
+	BoardVO read(int boardno) throws Exception;
 }

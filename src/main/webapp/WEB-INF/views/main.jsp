@@ -96,7 +96,7 @@
                 
                 <!-- img -->
                 <div class="card-img">
-                    <img src="${item.img}" alt="상품">
+                    <img src="${pageContext.request.contextPath}/resources/imgs/${item.img}" alt="상품">
                 </div>
 
                 <!-- info -->

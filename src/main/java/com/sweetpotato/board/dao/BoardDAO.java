@@ -20,5 +20,14 @@ public interface BoardDAO {
 	 */
 	@Select("SELECT * FROM board ORDER BY boardno DESC")
 	List<BoardVO> listAll() throws Exception;
+	
+	/**
+	 * 게시글 상세보기
+	 * 
+	 * @param bno - 상세보기할 게시글 번호
+	 * @return - 조회된 게시글 정보를 BoardVO 타입으로 반환
+	 */
+	@Select("SELECT * FROM tbl_board WHERE boardno = #{boardno}")
+	BoardVO read(int bno) throws Exception;
     
 }
