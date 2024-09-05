@@ -44,11 +44,10 @@ import com.sweetpotato.board.service.BoardService;
 	    }
 	    
 	    @GetMapping("trade_board")
-	    public String trade_board(int boardno, RedirectAttributes rttr) throws Exception {
-	    	bs.read(boardno);
-	    	rttr.addAttribute("boardno",boardno);
-	    	
-	    	return "redirect:/trade_board";
+	    public String trade_board(int boardno, Model model) throws Exception {
+	    	BoardVO vo = bs.read(boardno);
+	    	model.addAttribute(vo);
+	    	return "trade_board";
 	    }
 	
 	    // 게시글 작성 받는 post매핑

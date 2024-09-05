@@ -27,7 +27,7 @@ public interface BoardDAO {
 	 * @param bno - 상세보기할 게시글 번호
 	 * @return - 조회된 게시글 정보를 BoardVO 타입으로 반환
 	 */
-	@Select("SELECT * FROM tbl_board WHERE boardno = #{boardno}")
-	BoardVO read(int bno) throws Exception;
+	@Select("SELECT * FROM board WHERE boardno = #{boardno}")
+	BoardVO read(int boardno) throws Exception;
     
 }

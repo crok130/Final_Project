@@ -34,6 +34,7 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public BoardVO read(int boardno) throws Exception {
+		System.out.println(boardno);
 		return dao.read(boardno);
 	}
 	

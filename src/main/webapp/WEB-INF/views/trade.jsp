@@ -1,7 +1,9 @@
-]<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,13 +46,21 @@
             
             <c:forEach var="item" items="${popularItems}">
               <div class="card-box infinite-item">
-                <!--로그인 된 유저라면-->
+                <%--  로그인 된 유저라면 --%>
                 <a href="" class="trade-text-link">
                     <div class="card-img">
-
-                            <img src="${pageContext.request.contextPath}/resources/imgs/${item.img}" alt="상품이미지">
-
-                    </div>
+						<c:set var="firstCommaIndex" value="${fn:indexOf(item.img, ',')}" />
+						<c:choose>
+							     <%-- 이미지가 하나만 있을 때 (쉼표가 없을 경우) --%>
+							    <c:when test="${firstCommaIndex == -1}">
+							        <img src="${pageContext.request.contextPath}/resources/imgs/${item.img}" alt="상품이미지">
+							    </c:when>
+							   <%-- 쉼표가 있는 경우 첫 번째 이미지 추출 ---%>
+							    <c:otherwise>
+							        <img src="${pageContext.request.contextPath}/resources/imgs/${fn:substring(item.img, 0, firstCommaIndex)}" alt="상품이미지">
+							    </c:otherwise>
+						</c:choose>
+					</div>
                     <div class="card-info-box">
                         <h5>${item.title}</h5>
                         <p class="bold">${item.price}원</p>
