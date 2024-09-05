@@ -1,4 +1,4 @@
-package com.sweetpotato.emailServlet;
+package com.sweetpotato.servlet;
 
 import java.io.IOException;
 import java.util.Random;

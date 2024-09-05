@@ -25,12 +25,12 @@ public class MyBatisTest {
 	@Test
 	public void insertMember() {
 		MemberVO member = new MemberVO();
-		member.setMemberid("id001");
-		member.setMemberpass("pw001");
-		member.setMembername("홍길동");
-		member.setMemberbirth("1997.01.01");
-		member.setMemberphone("01000000000");
-		member.setMemberemail("kameni4485@ndiety.com");
+		member.setMemberid("id002");
+		member.setMemberpass("pw002");
+		member.setMembername("홍길순");
+		member.setMemberbirth("1997.11.01");
+		member.setMemberphone("01011111111");
+		member.setMemberemail("fatherimim@naver.com");
 		member.setMemberaddr("부산광역시 수영구 광남로 70");
 		
 		int result = sqlSession.insert("memberMapper.create", member);
