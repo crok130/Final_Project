@@ -57,4 +57,9 @@ public class HomeController {
 	public String mypage() {
 		return "mypage";
 	}
+	
+	@GetMapping("location")
+	public String location() {
+		return "location";
+	}
 }

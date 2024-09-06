@@ -47,7 +47,7 @@
             <c:forEach var="item" items="${popularItems}">
               <div class="card-box infinite-item">
                 <%--  로그인 된 유저라면 --%>
-                <a href="" class="trade-text-link">
+                <a href="trade_board?boardno=${item.boardno}" class="trade-text-link">
                     <div class="card-img">
 						<c:set var="firstCommaIndex" value="${fn:indexOf(item.img, ',')}" />
 						<c:choose>

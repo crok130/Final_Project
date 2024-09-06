@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +19,17 @@
     <div class="content-box">
       <div class="container column">
         <div class="post-box">
-            <img src="resources/img/ra.PNG" alt="상품판매이미지" class="block-box">
+            	<c:set var="firstCommaIndex" value="${fn:indexOf(boardVO.img, ',')}" />
+				<c:choose>
+					<%-- 이미지가 하나만 있을 때 (쉼표가 없을 경우) --%>
+					<c:when test="${firstCommaIndex == -1}">
+						<img src="${pageContext.request.contextPath}/resources/imgs/${boardVO.img}" alt="상품이미지">
+					</c:when>
+					<%-- 쉼표가 있는 경우 첫 번째 이미지 추출 ---%>
+					<c:otherwise>
+						<img src="${pageContext.request.contextPath}/resources/imgs/${fn:substring(boardVO.img, 0, firstCommaIndex)}" alt="상품이미지">
+					</c:otherwise>
+				</c:choose>
             <div class="flex-box between info-button-box">
               <div class="user-info">
                 <h6>최수빈</h6>
@@ -42,15 +55,15 @@
             <div class="post-info-box">
               <div class="flex-box between">
                 <h3>제목</h3>
-                <h3>20000
+                <h3>${boardVO.price}
                   원</h3>
               </div>
-              <p>하자없습니다</p>
+              <p>${boardVO.content}</p>
               <div class="location-views-box flex-box between">
                 <p>희망 거래장소 |
-                  부산</p>
+                  ${boardVO.region}</p>
                 <p>조회수
-                  40</p>
+                  ${boardVO.viewcnt}</p>
               </div>
             </div>
           

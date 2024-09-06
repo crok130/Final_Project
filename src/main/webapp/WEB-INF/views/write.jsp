@@ -141,6 +141,26 @@
         #product-price::placeholder{
         	text-align: right;
         }
+        
+        #image-preview {
+   			display: none; /* 처음에는 미리보기 영역을 숨김 */
+   			width: 720px;
+   			justify-content: center;
+   			margin-bottom: 20px;
+		}
+		 .slider-buttons button {
+            padding: 10px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .slider-buttons button:hover {
+            background-color: #0056b3;
+        }
     </style>
     <link rel="stylesheet" type="text/css" href="resources/css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="resources/css/footer.css"/>
@@ -157,31 +177,68 @@
 
             <!-- 이미지 업로드 섹션 -->
             <div class="image-upload-section">
+            
             	<div id="image-preview"></div>
                 <button type="button" class="image-upload-btn" onclick="document.getElementById('image-uploader').click()">이미지 등록</button>
                 <input id="image-uploader" type="file" name="img" style="display: none;" multiple onchange="previewImages(event)" />
             </div>
+            <div class="slider-buttons">
+                <button type="button" onclick="prevImage()">이전</button>
+                <button type="button" onclick="nextImage()">다음</button>
+            </div>
 
     <script>
-	    function previewImages(event) {
-	        var files = event.target.files;
-	        var preview = document.getElementById('image-preview');
-	        preview.innerHTML = "";
-	
-	        for (var i = 0; i < files.length; i++) {
-	            var file = files[i];
-	            var reader = new FileReader();
-	            reader.onload = function(e) {
-	                var img = document.createElement('img');
-	                img.src = e.target.result;
-	                img.style.width = "100px";
-	                img.style.height = "100px";
-	                img.style.margin = "10px";
-	                preview.appendChild(img);
-	            }
-	            reader.readAsDataURL(file);
-	        }
-	    }
+    let currentIndex = 0;
+    let images = [];
+
+    function previewImages(event) {
+        var files = event.target.files;
+        var preview = document.getElementById('image-preview');
+        var uploadButton = document.querySelector('.image-upload-btn'); // 이미지 등록 버튼 선택
+
+        images = [];  // 기존 이미지 초기화
+        preview.innerHTML = "";  // 기존 미리보기를 초기화
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                images.push(e.target.result);  // 이미지 데이터를 배열에 저장
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // 첫 번째 이미지 미리보기 표시
+        reader.onloadend = function() {
+            if (images.length > 0) {
+                previewImage(currentIndex);
+            }
+        };
+
+        // 이미지 선택 후 버튼 숨기기
+        if (files.length > 0) {
+            uploadButton.style.display = 'none';
+        }
+    }
+
+    function previewImage(index) {
+        var preview = document.getElementById('image-preview');
+        preview.innerHTML = `<img src="${images[index]}" alt="이미지 미리보기" />`;
+    }
+
+    function nextImage() {
+        if (currentIndex < images.length - 1) {
+            currentIndex++;
+            previewImage(currentIndex);
+        }
+    }
+
+    function prevImage() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            previewImage(currentIndex);
+        }
+    }
 	</script>
             <!-- 제목 입력 -->
             <div class="input-group">

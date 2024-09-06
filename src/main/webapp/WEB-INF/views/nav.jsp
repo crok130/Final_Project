@@ -15,7 +15,7 @@
           <a href="trade">
             <button id="trade-button">중고거래</button>
           </a>
-            <a href="dd">
+            <a href="location">
               <button id="location-button">동네인증</button>
 			</a>
 
