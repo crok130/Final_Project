@@ -21,4 +21,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="memberList" resultType="com.sweetpotato.member.vo.MemberVO">
 		SELECT * FROM member ORDER BY membername DESC
 	</select>
+	
+	<!-- 이메일 존재여부 확인 -->
+	<select id="emailExists" parameterType="String" resultType="boolean">
+		SELECT COUNT(*) > 0
+		FROM member
+		WHERE memberemail = #{email}
+	</select>
+	
+	<!-- 회원아이디로 비밀번호 업데이트 -->
+	<update id="">
+		UPDATE member
+		SET memberpass = #{hashedPassword}
+		WHERE memberid = #{memberid}
+	</update>
 </mapper>
