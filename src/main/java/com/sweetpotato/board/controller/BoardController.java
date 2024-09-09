@@ -59,8 +59,8 @@ import com.sweetpotato.board.service.BoardService;
 	                      @RequestParam("sub_category") String subCategory,
 	                      @RequestParam("content") String content,
 	                      @RequestParam("region") String region,
-	                      @RequestPart("img") List<MultipartFile> multipartFile,
-	                      HttpServletRequest req) throws Exception {
+	                      @RequestPart("img") List<MultipartFile> multipartFile
+	                     ) throws Exception {
 	
 	        // 동적으로 파일 저장 경로 설정
 	        String path = servletContext.getRealPath("\\resources\\imgs\\");

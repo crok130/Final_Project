@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>팔래요 등록하기</title>
+    <script src ="${path}/resource/js/write.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -146,20 +147,11 @@
    			display: none; /* 처음에는 미리보기 영역을 숨김 */
    			width: 720px;
    			justify-content: center;
-   			margin-bottom: 20px;
 		}
-		 .slider-buttons button {
-            padding: 10px;
-            border: none;
-            background-color: #007BFF;
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
-            border-radius: 4px;
-        }
-
-        .slider-buttons button:hover {
-            background-color: #0056b3;
+		        .slide-controls {
+            display: none; /* 초기 상태에서는 슬라이드 제어 버튼을 숨김 */
+            justify-content: space-between;
+            width: 100%;
         }
     </style>
     <link rel="stylesheet" type="text/css" href="resources/css/reset.css"/>
@@ -182,64 +174,14 @@
                 <button type="button" class="image-upload-btn" onclick="document.getElementById('image-uploader').click()">이미지 등록</button>
                 <input id="image-uploader" type="file" name="img" style="display: none;" multiple onchange="previewImages(event)" />
             </div>
-            <div class="slider-buttons">
-                <button type="button" onclick="prevImage()">이전</button>
-                <button type="button" onclick="nextImage()">다음</button>
+            
+         <div class="slide-controls">
+                <button type="button" class="prev-btn" onclick="changeSlide(-1)" disabled>이전</button>
+                <div class="pagination" id="pagination"></div>
+                <button type="button" class="next-btn" onclick="changeSlide(1)" disabled>다음</button>
             </div>
 
-    <script>
-    let currentIndex = 0;
-    let images = [];
 
-    function previewImages(event) {
-        var files = event.target.files;
-        var preview = document.getElementById('image-preview');
-        var uploadButton = document.querySelector('.image-upload-btn'); // 이미지 등록 버튼 선택
-
-        images = [];  // 기존 이미지 초기화
-        preview.innerHTML = "";  // 기존 미리보기를 초기화
-
-        for (var i = 0; i < files.length; i++) {
-            var file = files[i];
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                images.push(e.target.result);  // 이미지 데이터를 배열에 저장
-            };
-            reader.readAsDataURL(file);
-        }
-
-        // 첫 번째 이미지 미리보기 표시
-        reader.onloadend = function() {
-            if (images.length > 0) {
-                previewImage(currentIndex);
-            }
-        };
-
-        // 이미지 선택 후 버튼 숨기기
-        if (files.length > 0) {
-            uploadButton.style.display = 'none';
-        }
-    }
-
-    function previewImage(index) {
-        var preview = document.getElementById('image-preview');
-        preview.innerHTML = `<img src="${images[index]}" alt="이미지 미리보기" />`;
-    }
-
-    function nextImage() {
-        if (currentIndex < images.length - 1) {
-            currentIndex++;
-            previewImage(currentIndex);
-        }
-    }
-
-    function prevImage() {
-        if (currentIndex > 0) {
-            currentIndex--;
-            previewImage(currentIndex);
-        }
-    }
-	</script>
             <!-- 제목 입력 -->
             <div class="input-group">
                 <label for="title">제목*</label>
@@ -257,17 +199,6 @@
             </div>
             <input type="hidden" id="status" name="status" value="판매중" />
             
-            <script>
-                function setStatus() {
-                    var freeCheck = document.getElementById("free-check");
-                    var statusInput = document.getElementById("status");
-                    if (freeCheck.checked) {
-                        statusInput.value = "나눔";
-                    } else {
-                        statusInput.value = "판매중";
-                    }
-                }
-            </script>
 
             <!-- 카테고리 선택 -->
             <label for="product-price" style="font-weight: bold; margin-bottom: 7px;">카테고리*</label>
@@ -286,39 +217,7 @@
                     <option value="0">서브분류</option>
                 </select>
             </div>
-
-            <script>
-            function updateSubCategory() {
-                const subCategory = document.getElementById("sub_category");
-                const mainCategory = document.getElementById("main_category").value;
-
-                sub_category.innerHTML = '<option value="">서브분류</option>';
-
-                let options = [];
-                if (mainCategory == "신발") {
-                    options = ["스니커즈", "운동화", "슬리퍼", "크록스", "구두"];
-                } else if (mainCategory == "가전제풀") {
-                    options = ["냉장고", "TV", "에어컨", "핸드폰"];
-                } else if (mainCategory == "시계/쥬얼리") {
-                    options = ["시계", "목걸이", "반지", "팔찌"];
-                } else if (mainCategory == "스포츠/레저") {
-                    options = ["캠핑", "등산", "자전거", "골프"];
-                } else if (mainCategory == "의류") {
-                    options = ["티셔츠", "바지", "자켓", "원피스"];
-                } else if (mainCategory == "가구") {
-                    options = ["침대", "소파", "책상", "의자"];
-                }
-
-                // 서브 카테고리 옵션 추가
-                for (let i = 0; i < options.length; i++) {
-                    const option = document.createElement("option");
-                    option.value = options[i];
-                    option.text = options[i];
-                    subCategory.appendChild(option);
-                }
-            }
-            </script>
-
+            
             <!-- 내용 입력 -->
             <div class="input-group">
                 <label for="product-content">내용*</label>

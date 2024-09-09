@@ -13,23 +13,80 @@
   <link rel="stylesheet" type="text/css" href="resources/css/nav.css"/>
   <link rel="stylesheet" type="text/css" href="resources/css/global.css"/>
 <title>Insert title here</title>
+<style>
+   .slider-container {
+        position: relative;
+        width: 100%;
+        text-align: center;
+    }
+
+    .slider-image {
+        display: none;
+        width: 100%;
+        height: auto;
+    }
+
+    .slider-image.active {
+        display: block;
+    }
+
+    .slider-controls {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        transform: translateY(-50%);
+    }
+
+    .slider-info {
+        position: absolute;
+        bottom: 20px; /* 이미지 밑에 위치 */
+        left: 50%;
+        transform: translateX(-50%); /* 가로 중앙 정렬 */
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        background: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+    .prev-btn, .next-btn {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .prev-btn:hover, .next-btn:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+</style>
 </head>
 <body>
     <%@ include file="nav.jsp" %>
     <div class="content-box">
       <div class="container column">
         <div class="post-box">
-            	<c:set var="firstCommaIndex" value="${fn:indexOf(boardVO.img, ',')}" />
-				<c:choose>
-					<%-- 이미지가 하나만 있을 때 (쉼표가 없을 경우) --%>
-					<c:when test="${firstCommaIndex == -1}">
-						<img src="${pageContext.request.contextPath}/resources/imgs/${boardVO.img}" alt="상품이미지">
-					</c:when>
-					<%-- 쉼표가 있는 경우 첫 번째 이미지 추출 ---%>
-					<c:otherwise>
-						<img src="${pageContext.request.contextPath}/resources/imgs/${fn:substring(boardVO.img, 0, firstCommaIndex)}" alt="상품이미지">
-					</c:otherwise>
-				</c:choose>
+			<div class="slider-container" id="slider">
+			    <c:set var="images" value="${fn:split(boardVO.img, ',')}" />
+			    <c:forEach var="image" items="${images}" varStatus="status">
+			        <img src="${pageContext.request.contextPath}/resources/imgs/${image}" class="slider-image ${status.index == 0 ? 'active' : ''}" alt="상품이미지">
+			    </c:forEach>
+			
+			    <!-- 이전/다음 버튼 -->
+			    <div class="slider-controls">
+			        <button class="prev-btn" onclick="prevSlide()">이전</button>
+			        <button class="next-btn" onclick="nextSlide()">다음</button>
+			    </div>
+			
+			    <!-- 이미지 개수 및 현재 이미지 순서 표시 -->
+			    <div class="slider-info">
+			        <span id="current-slide">1</span> / <span id="total-slides">${fn:length(images)}</span>
+			    </div>
+			</div>
             <div class="flex-box between info-button-box">
               <div class="user-info">
                 <h6>최수빈</h6>
@@ -71,5 +128,31 @@
       </div>
     </div>
      <%@ include file="footer.jsp" %>
+    <script>
+    var currentIndex = 0;
+    var images = document.getElementsByClassName("slider-image");
+    var totalSlides = images.length;
+    var currentSlideElement = document.getElementById("current-slide");
+
+    function showSlide(index) {
+        for (var i = 0; i < images.length; i++) {
+            images[i].classList.remove("active");
+        }
+        images[index].classList.add("active");
+
+        // 현재 이미지 번호 업데이트
+        currentSlideElement.innerText = index + 1;
+    }
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % images.length;
+        showSlide(currentIndex);
+    }
+
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        showSlide(currentIndex);
+    }
+    </script>
 </body>
 </html>
