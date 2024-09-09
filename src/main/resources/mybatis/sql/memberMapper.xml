@@ -8,6 +8,8 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="memberMapper">
+
+	<!-- 회원가입 -->
 	<insert id="create"
 			statementType="PREPARED"
 			parameterType="com.sweetpotato.member.vo.MemberVO">
@@ -22,17 +24,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM member ORDER BY membername DESC
 	</select>
 	
-	<!-- 이메일 존재여부 확인 -->
-	<select id="emailExists" parameterType="String" resultType="boolean">
-		SELECT COUNT(*) > 0
-		FROM member
-		WHERE memberemail = #{email}
+	<!-- 로그인 -->
+	<select id="login" parameterType="MemberVO" resultType="MemberVO">
+		SELECT * FROM member
+		WHERE memberid = #{memberid} AND memberpass = #{memberpass}
 	</select>
 	
-	<!-- 회원아이디로 비밀번호 업데이트 -->
-	<update id="">
+	<!-- 이메일을 이용한 비밀번호 수정 -->
+	<update id="updateMemberPasswordByEmail" parameterType="map">
 		UPDATE member
-		SET memberpass = #{hashedPassword}
-		WHERE memberid = #{memberid}
+		SET memberpass = #{newPassword}
+		WHERE memberemail = #{memberemail}
 	</update>
+	
 </mapper>
