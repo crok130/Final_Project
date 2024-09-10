@@ -5,7 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>팔래요 등록하기</title>
-    <script src ="${path}/resource/js/write.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src ="resources/js/write.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -172,7 +173,7 @@
             
             	<div id="image-preview"></div>
                 <button type="button" class="image-upload-btn" onclick="document.getElementById('image-uploader').click()">이미지 등록</button>
-                <input id="image-uploader" type="file" name="img" style="display: none;" multiple onchange="previewImages(event)" />
+                <input id="image-uploader" type="file" name="imgs" style="display: none;" multiple onchange="previewImages(event)" />
             </div>
             
          <div class="slide-controls">
@@ -240,26 +241,33 @@
 <script>
     function submitForm(event) {
         event.preventDefault();  // 폼의 기본 제출 동작을 막습니다.
-
-        var form = document.getElementById('boardForm');
-        var formData = new FormData(form);
-
-        // AJAX 요청 생성
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "write", true);
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                alert("등록 완료!");
-                window.location.href = "trade";
-            } else {
-                alert("등록 실패");
-            }
-        };
-        xhr.onerror = function() {
-            alert("서버와의 통신 중 오류가 발생했습니다.");
-        };
-        xhr.send(formData);
-    }
+		let
+    	$("#addBtn").click(function(){
+    		let cAuth = $("#cAuth").val();
+    		let cText = $("#cText").val();
+    		
+    		// jQuery ajax
+    		$.ajax({
+    			type : "POST",
+    			url : "${path}/comments",
+    			data : {
+    				bno : bno,
+    				commentAuth : cAuth,
+    				commentText : cText
+    			},
+    			// dataType : "json",			// 결과를 JavaScript 객체로 전달
+    			dataType : "text",
+    			// {key : value}
+    			success : function(result){
+    				// 응답이 성공하면 실행될 함수
+    				alert(result);
+    			},
+    			error : function(res){
+    				console.log(res);
+    			}
+    		});
+    		
+    	});
 </script>
 </body>
 </html>
