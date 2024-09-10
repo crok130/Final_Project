@@ -7,7 +7,7 @@ import com.sweetpotato.member.vo.MemberVO;
 public interface MemberDAO{
 	// 회원가입
 	@Insert("INSERT INTO member VALUES(null, #{memberid}, #{memberpass}, #{membername}, #{memberbirth}, #{memberphone}, #{memberemail}, #{memberaddr})")
-	void insertMember(MemberVO member);
+	int insertMember(MemberVO member);
 	
 	// 이메일을 이용한 비밀번호 수정
 	@Insert("UPDATE member"

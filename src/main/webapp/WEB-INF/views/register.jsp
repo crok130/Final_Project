@@ -13,7 +13,7 @@
 <title>회원가입</title>
 <script>
 	function sendEmail() {
-	    var email = document.getElementById("memberemail").value;
+	    var email = document.getElementById("memberemail").val;
 	    if (email) {
 	        var xhr = new XMLHttpRequest();
 	        xhr.open("POST", "sendEmail", true);
@@ -58,7 +58,7 @@
 	<%@ include file="nav.jsp"%>
 	<div class="container">
 		<div class="login-container">
-			<form method="post" class="login-form">
+			<form action="rig" method="post" class="login-form">
 				<div>
 					<label for="membername" class="login-label">이름</label> 
 					<input type="text" id="membername" name="membername" class="login-input" required>
@@ -101,7 +101,7 @@
 				<button type="submit" class="login-button" id="registerBtn">회원가입</button>
 			</form>
 			<p class="register-reco">
-				이미 계정이 있으신가요? <a href="{% url 'login' %}" class="bold">로그인</a>
+				이미 계정이 있으신가요? <a href="#" class="bold">로그인</a>
 			</p>
 		</div>
 	</div>
