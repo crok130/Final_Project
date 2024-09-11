@@ -16,10 +16,8 @@ public class BoardServiceImpl implements BoardService{
 	private final BoardDAO dao;
 	
 	@Override
-	public String regist(BoardVO vo) throws Exception {
-		int result = dao.create(vo);
-		String message = (result == 1) ? "SUCCESS" : "FAILED";
-		return message;
+	public void regist(BoardVO vo) throws Exception {
+		dao.create(vo);
 	}
 
 	@Override

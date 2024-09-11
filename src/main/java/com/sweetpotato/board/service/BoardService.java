@@ -11,7 +11,7 @@ public interface BoardService {
 	 * @param 게시글 등록 정보
 	 * @return 성공 유무 메세지
 	 */
-	String regist(BoardVO board) throws Exception;
+	void regist(BoardVO board) throws Exception;
 
 	/**
 	 * 조회수 증가

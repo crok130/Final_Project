@@ -14,12 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sweetpotato.board.service.BoardService;
 import com.sweetpotato.board.vo.BoardVO;
-
 
 import lombok.RequiredArgsConstructor;
 	
@@ -52,37 +52,33 @@ import lombok.RequiredArgsConstructor;
 	    // 게시글 작성 받는 post매핑
 	    @PostMapping("write")
 	    public void write(BoardVO vo,
-	                      @RequestPart("imgs") List<MultipartFile> multipartFile
-	                     ) throws Exception {
-	
-	        // 동적으로 파일 저장 경로 설정
-	        String path = servletContext.getRealPath("\\resources\\imgs\\");
-	        System.out.println(path);
-	
-	
-	        // 파일 저장 로직
-	        if (!multipartFile.isEmpty()) {
-	            StringBuilder imgFilenames = new StringBuilder();
-	            for (MultipartFile mpr : multipartFile) {
-	                String orgFilename = mpr.getOriginalFilename();
-	                
-	                String uniqueFilename = UUID.randomUUID().toString() + "_" + orgFilename;
-	
-	                // 대상 파일 생성
-	                File targetFile = new File(path + File.separator + uniqueFilename);
-	                mpr.transferTo(targetFile);
-	
-	                // 파일 이름만 추가
-	                imgFilenames.append(uniqueFilename).append(",");
-	            }
-	            // 이미지 이름만 설정
-	            vo.setImg(imgFilenames.substring(0, imgFilenames.length() - 1)); // 마지막 ',' 제거
-	        }
-	        
-	        System.out.println("BoardVO: " + vo);
-	
-	        bs.regist(vo);
-	    }
+                @RequestPart("imgs") List<MultipartFile> multipartFile
+               ) throws Exception {
+
+		  // 동적으로 파일 저장 경로 설정
+			  String path = servletContext.getRealPath("\\resources\\imgs\\");
+			  System.out.println(path);
+			
+			  // 파일 저장 로직
+			  if (!multipartFile.isEmpty()) {
+			      StringBuilder imgFilenames = new StringBuilder();
+			      for (MultipartFile mpr : multipartFile) {
+			          String orgFilename = mpr.getOriginalFilename();
+			          
+			          String uniqueFilename = UUID.randomUUID().toString() + "_" + orgFilename;
+			
+			          // 대상 파일 생성
+			          File targetFile = new File(path + File.separator + uniqueFilename);
+			          mpr.transferTo(targetFile);
+			
+			          // 파일 이름만 추가
+			          imgFilenames.append(uniqueFilename).append(",");
+			      }
+			      // 이미지 이름만 설정
+			      vo.setImg(imgFilenames.substring(0, imgFilenames.length() - 1)); // 마지막 ',' 제거
+			  }
+			
+			  bs.regist(vo);
+		}
 	    
-	
 	}

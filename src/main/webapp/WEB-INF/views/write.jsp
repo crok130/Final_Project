@@ -215,7 +215,7 @@
                     <option value="가구">가구</option>
                 </select>
                  <select id="sub_category" name="sub_category">
-                    <option value="0">서브분류</option>
+                    <option value="">서브분류</option>
                 </select>
             </div>
             
@@ -238,36 +238,30 @@
             </div>
         </form>
     </div>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-    function submitForm(event) {
-        event.preventDefault();  // 폼의 기본 제출 동작을 막습니다.
-		let
-    	$("#addBtn").click(function(){
-    		let cAuth = $("#cAuth").val();
-    		let cText = $("#cText").val();
-    		
-    		// jQuery ajax
-    		$.ajax({
-    			type : "POST",
-    			url : "${path}/comments",
-    			data : {
-    				bno : bno,
-    				commentAuth : cAuth,
-    				commentText : cText
-    			},
-    			// dataType : "json",			// 결과를 JavaScript 객체로 전달
-    			dataType : "text",
-    			// {key : value}
-    			success : function(result){
-    				// 응답이 성공하면 실행될 함수
-    				alert(result);
-    			},
-    			error : function(res){
-    				console.log(res);
-    			}
-    		});
-    		
-    	});
+	function submitForm(event) {
+	    event.preventDefault();  // 폼의 기본 제출 동작을 막습니다.
+	
+	    var form = $('#boardForm')[0];
+	    var formData = new FormData(form);
+	
+	    // jQuery AJAX 요청 생성
+	    $.ajax({
+	        url: "write",
+	        type: "POST",
+	        data: formData,
+	        processData: false,  
+	        contentType: false,
+	        success: function(response) {
+	            alert("등록 완료!");
+	            window.location.href = "trade";
+	        },
+	        error: function() {
+	            alert("등록 실패");
+	        }
+	    });
+	}
 </script>
 </body>
 </html>

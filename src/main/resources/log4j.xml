@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.sweetpotato.community">
+	<logger name="com.sweetpotato">
 		<level value="info" />
 	</logger>
 	
