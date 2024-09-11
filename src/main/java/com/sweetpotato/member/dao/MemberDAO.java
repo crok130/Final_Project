@@ -1,22 +1,26 @@
 package com.sweetpotato.member.dao;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sweetpotato.member.vo.MemberVO;
 
-public interface MemberDAO{
-	// 회원가입
-	@Insert("INSERT INTO member VALUES(null, #{memberid}, #{memberpass}, #{membername}, #{memberbirth}, #{memberphone}, #{memberemail}, #{memberaddr})")
-	int insertMember(MemberVO member);
-	
-	// 이메일을 이용한 비밀번호 수정
-	@Insert("UPDATE member"
-			+ "SET memberpass = #{newPassword}"
-			+ "WHERE memberemail = #{memberemail}")
-	void updateMemberPasswordByEmail(String memberemail, String newPassword);
-	
-	// 로그인 처리 메소드
-	@Insert("SELECT * FROM member"
-			+ "WHERE memberid = #{memberid} AND memberpass = #{memberpass}")
-	MemberVO login(MemberVO member);
+public interface MemberDAO {
+
+    // 회원가입
+    @Insert("INSERT INTO member VALUES(null, #{memberid}, #{memberpass}, #{membername}, #{memberbirth}, #{memberphone}, #{memberemail}, #{memberaddr})")
+    int insertMember(MemberVO member);
+
+    // 이메일을 이용한 비밀번호 수정
+    @Update("UPDATE member SET memberpass = #{newPassword} WHERE memberemail = #{memberemail}")
+    void updateMemberPasswordByEmail(String memberemail, String newPassword);
+
+    // 아이디와 이메일로 회원 조회
+    @Select("SELECT * FROM member WHERE memberid = #{memberid} AND memberemail = #{memberemail}")
+    MemberVO findMemberByIdAndEmail(String memberid, String memberemail);
+
+    // 로그인 처리 메서드
+    @Select("SELECT * FROM member WHERE memberid = #{memberid} AND memberpass = #{memberpass}")
+    MemberVO login(MemberVO member);
 }

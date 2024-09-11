@@ -29,44 +29,4 @@ public class HomeController {
 		return "main";
 	}
 	
-	@RequestMapping(value = "login", method = RequestMethod.GET)
-	public String login() {
-		return "login";
-	}
-	
-	@RequestMapping(value = "register", method = RequestMethod.GET)
-	public String register() {
-		return "register";
-	}
-	
-	@RequestMapping(value = "trade", method = RequestMethod.GET)
-	public String trade() {
-		return "trade";
-	}
-	
-	@RequestMapping(value = "write", method = RequestMethod.GET)
-	public String write() {
-		return "write";
-	}
-	
-	@RequestMapping(value = "search", method = RequestMethod.GET)
-	public String search() {
-		return "search";
-	}
-	
-	@RequestMapping(value = "trade_board", method = RequestMethod.GET)
-	public String trade_board() {
-		return "trade_board";
-	}
-	
-	@RequestMapping(value = "profile", method = RequestMethod.GET)
-	public String profile() {
-		return "profile";
-	}
-	
-	
-	@RequestMapping(value = "mypage", method = RequestMethod.GET)
-	public String mypage() {
-		return "mypage";
-	}
 }

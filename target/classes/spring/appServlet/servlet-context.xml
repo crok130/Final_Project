@@ -26,7 +26,8 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-	<context:component-scan
-		base-package="com.sweetpotato.community" />
+	<context:component-scan base-package="com.sweetpotato.community" />
+	<context:component-scan	base-package="com.sweetpotato.*.controller" />
+	<context:component-scan	base-package="com.sweetpotato.*.service" />
 
 </beans:beans>
