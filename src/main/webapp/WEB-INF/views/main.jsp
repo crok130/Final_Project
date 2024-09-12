@@ -123,8 +123,12 @@
               </a>
             </div>
             </c:forEach>
+            <c:if test="${fn:length(searchResults) % 4 != 0}">
+				<c:forEach begin="1" end="${4 - (fn:length(searchResults) % 4)}">
+				<div class="card-box empty"></div>
+				</c:forEach>
+			</c:if>
           </div>
-          
           <a href="trade">인기매물 더 보기</a>
         </div>
       </div>

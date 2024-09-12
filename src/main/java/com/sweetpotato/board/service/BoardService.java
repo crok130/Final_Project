@@ -29,4 +29,7 @@ public interface BoardService {
 	
 	
 	BoardVO read(int boardno) throws Exception;
+
+	
+	List<BoardVO> searchlist(String search);
 }

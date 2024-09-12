@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="flex-box gap8">
-        <form method="GET" action="search">
+        <form method="POST" action="search">
           <input type="text" id="search" name="search" class="search" placeholder="물품이나 동네를 검색해보세요"/>
         </form>
           <a href="chat" class="ghost-button orange">채팅하기</a>

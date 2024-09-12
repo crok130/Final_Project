@@ -10,7 +10,7 @@ import com.sweetpotato.board.vo.BoardVO;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor 
 public class BoardServiceImpl implements BoardService{
 	
 	private final BoardDAO dao;
@@ -33,6 +33,11 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public BoardVO read(int boardno) throws Exception {
 		return dao.read(boardno);
+	}
+
+	@Override
+	public List<BoardVO> searchlist(String search) {
+	    return dao.searchlist(search);
 	}
 	
 

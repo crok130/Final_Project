@@ -29,5 +29,9 @@ public interface BoardDAO {
 	 */
 	@Select("SELECT * FROM board WHERE boardno = #{boardno}")
 	BoardVO read(int boardno) throws Exception;
+
+	
+	@Select("SELECT * FROM board WHERE title LIKE CONCAT('%', #{search}, '%')")
+	List<BoardVO> searchlist(String search);
     
 }

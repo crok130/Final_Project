@@ -74,6 +74,11 @@
                 </a>
               </div>
               </c:forEach>
+              <c:if test="${fn:length(searchResults) % 4 != 0}">
+				  <c:forEach begin="1" end="${4 - (fn:length(searchResults) % 4)}">
+				    <div class="card-box empty"></div>
+				  </c:forEach>
+			</c:if>
               <!--아래줄부터 상품들록  -->
           </div>
         </div>
