@@ -1,9 +1,6 @@
 package com.sweetpotato.util;
 
 import java.util.Properties;
-
-import org.springframework.stereotype.Component;
-
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
@@ -13,7 +10,6 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
-@Component
 public class EmailUtil {
 
     private static final String HOST = "smtp.naver.com";
@@ -21,7 +17,7 @@ public class EmailUtil {
     private static final String EMAIL = "star8795@naver.com";
     private static final String PASSWORD = "Kim168017**"; // 실제 네이버 계정의 앱 비밀번호 (2단계 인증 사용 시)
 
-    public static void sendEmail(String toEmail, String subject, String body) throws MessagingException {
+    public void sendEmail(String toEmail, String subject, String body) throws MessagingException {
         Properties props = new Properties();
         props.put("mail.smtp.host", HOST);
         props.put("mail.smtp.port", PORT);

@@ -11,23 +11,27 @@
 <link rel="stylesheet" type="text/css" href="resources/css/login.css" />
 <title>회원가입</title>
 <script>
-    function sendEmail() {
-        var email = document.getElementById("memberemail").value; // 수정된 부분
-        if (email) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "sendEmail", true);
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    document.getElementById("authCodeDiv").classList.remove("hidden");
-                    document.getElementById("emailMessage").innerText = "인증 코드가 이메일로 전송되었습니다.";
-                }
-            };
-            xhr.send("email=" + email);
-        } else {
-            alert("이메일을 입력하세요.");
-        }
-    }
+	function sendEmail() {
+	    var email = document.getElementById("memberemail").value;
+	    if (email) {
+	        var xhr = new XMLHttpRequest();
+	        xhr.open("POST", "sendEmail", true);
+	        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	        xhr.onreadystatechange = function() {
+	            if (xhr.readyState == 4 && xhr.status == 200) {
+	                if (xhr.responseText.trim() === "success") {
+	                    alert("인증 코드가 이메일로 전송되었습니다.");
+	                    document.getElementById("authCodeDiv").classList.remove("hidden");
+	                } else {
+	                    alert("이메일 전송에 실패했습니다.");
+	                }
+	            }
+	        };
+	        xhr.send("memberemail=" + encodeURIComponent(email));
+	    } else {
+	        alert("이메일을 입력하세요.");
+	    }
+	}
 
     function verifyCode() {
         var authCode = document.getElementById("authCode").value;
@@ -50,7 +54,7 @@
     function handleFormSubmit(event) {
         event.preventDefault();
         alert("회원가입이 완료되었습니다.\n고구마 마켓의 회원이 되신것을 진심으로 환영합니다.");
-        window.location.href = "login.jsp";
+        window.location.href = "login";
     }
 </script>
 </head>

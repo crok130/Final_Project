@@ -1,5 +1,7 @@
 package com.sweetpotato.member.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,4 +45,11 @@ public class MemberController {
 	public String mypage() {
 		return "mypage";
 	}
+	
+	@PostMapping("resetPassword")
+		public String resetPassword(String memberpass){
+			ms.resetpass(memberpass);
+			return "resetPassword";
+		}
+	
 }

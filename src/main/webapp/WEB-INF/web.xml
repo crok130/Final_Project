@@ -48,28 +48,6 @@
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 
-	<servlet>
-		<servlet-name>SendEmailServlet</servlet-name>
-		<servlet-class>com.sweetpotato.emailServlet.SendEmailServlet
-		</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>SendEmailServlet</servlet-name>
-		<url-pattern>/sendEmail</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>VerifyCodeServlet</servlet-name>
-		<servlet-class>com.sweetpotato.emailServlet.VerifyCodeServlet
-		</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>VerifyCodeServlet</servlet-name>
-		<url-pattern>/verifyCode</url-pattern>
-	</servlet-mapping>
-
-
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
