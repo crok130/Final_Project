@@ -17,11 +17,25 @@
         <div class="login-container">
             <form method="post" action="resetPassword" class="login-form">
                 <div>
-                    <label for="Password" class="login-label">비밀번호</label>
+                    <label for="memberid" class="login-label">아이디</label>
+                    <input type="text" id="memberid" name="memberid" class="login-input" required>
+                </div>
+                <div>
+                    <label for="memberemail" class="login-label">이메일</label>
+                    <input type="email" id="memberemail" name="memberemail" class="login-input" required>
+                </div>
+                <div>
+                    <label for="newPassword" class="login-label">새 비밀번호</label>
                     <input type="password" id="newPassword" name="memberpass" class="login-input" required>
                 </div>
                 <button type="submit" class="login-button">비밀번호 재설정</button>
             </form>
+            <!-- 비밀번호 재설정 결과 메시지 표시 -->
+            <div>
+                <c:if test="${not empty message}">
+                    <p>${message}</p>
+                </c:if>
+            </div>
         </div>
     </div>
     <%@ include file="footer.jsp" %>
