@@ -41,21 +41,21 @@
       <h5 id="region-info">현재 위치</h5>
       <h5 id="region-judge"></h5>
       <form id="region-certification-form" action="/set_region_certification/" class="full-box">
-        {% csrf_token %}
         <button id="region-save-button" class="primary-button">동네인증하기</button>
       </form>
     </div>
   </div>
-  <footer>{% include "carrot_app/footer.html" %}</footer>
+  <footer><%@ include file="footer.jsp" %></footer>
 
     <!--카카오 api key-->
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=06b71a5db40aca812f7ae8bff82d58b9&libraries=services"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3b519bd660eac99c3b8c17fc5975dff9"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3b519bd660eac99c3b8c17fc5975dff9=services"></script>
     <script>
       let regionSaveButton = document.getElementById("region-save-button");
       //지도 현재위치로 보여주기
       let mapContainer = document.getElementById("map"),
       mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+    	center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
         level: 6, // 지도의 확대 레벨
       };
 

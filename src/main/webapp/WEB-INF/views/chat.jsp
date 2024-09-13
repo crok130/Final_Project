@@ -75,7 +75,7 @@
             <div class="chat-main-container">
             <div>
                 <div class="contact-info flex-box">
-
+					crok130
                     <div class="temp">
 
                     </div>
@@ -108,32 +108,49 @@
               </div>
 
               <!--채팅창 메인-->
-                <div class="chat-container">
+                	<div class="chat-container">
                           <div class="message-box from-me">
-                              <p class="s-text">#</p>
-                              <div class="message-text">#</div>
+                              <p class="s-text">2024.09.13 2:23PM</p>
+                              <div class="message-text">안녕하세요</div>
                           </div>
                           <div class="message-box from-you">
-                              <div class="message-text">#</div>
-                              <p class="s-text">#</p>
+                              <div class="message-text">네안녕하세요</div>
+                              <p class="s-text">2024.09.13 2:23PM</p>
                           </div>
-                </div>
-                  <div class="chat-container">
+                           <div class="message-box from-me">
+                              <p class="s-text">2024.09.13 2:23PM</p>
+                              <div class="message-text">안녕하세요</div>
+                          </div>
+                          <div class="message-box from-you">
+                              <div class="message-text">네안녕하세요</div>
+                              <p class="s-text">2024.09.13 2:23PM</p>
+                          </div>
+                           <div class="message-box from-me">
+                              <p class="s-text">2024.09.13 2:23PM</p>
+                              <div class="message-text">안녕하세요</div>
+                          </div>
+                          <div class="message-box from-you">
+                              <div class="message-text">네안녕하세요</div>
+                              <p class="s-text">2024.09.13 2:23PM</p>
+                          </div>
+                          
+                        	<div class="message-box from-me">
+                              <p class="s-text">2024.09.13 2:23PM</p>
+                              <div class="message-text">안녕하세요</div>
+                          </div>
+                          <div class="message-box from-you">
+                              <div class="message-text">네안녕하세요</div>
+                              <p class="s-text">2024.09.13 2:23PM</p>
+                          </div>
+                	</div>
 
-                            <div class="message-box from-me">
-                                <p class="s-text">#</p>
-                                <div class="message-text">#</div>
-                            </div>
-                            <div class="message-box from-you">
-                                <div class="message-text">#</div>
-                                <p class="s-text">#</p>
-                            </div>
+                  <div class="chat-container">
                             <div class="message-box from-you">
                               <div class="message-text">
                                 <p>물건 거래가 완료되었습니다. 리뷰 작성을 원하신다면 <a href="#"> "여기를 클릭하세요" </a></p>
                               </div>
                             </div>
-              </div>
+             		</div>
 
             <form class="chat-input">
               <textarea name="" id="message-textarea" cols="30" rows="10" placeholder="메세지를 입력해주세요"></textarea>

@@ -20,7 +20,7 @@ h3{
     border: 1px solid #dedede;
     margin: 48px 0 0 0 ;
     align-items: stretch;
-    height: 580px;
+    min-height: 580px;
 }
 
 .post-box img{
@@ -236,9 +236,7 @@ hr{
 /* 작성창 */
 .chat-input{
     background-color: #fff;
-    margin-top : 20px;
-    margin-left : 20px;
-    margin-right : 20px;
+	margin : 20px;
     margin-bottom : 40px;
     border:1px solid #818181;
     border-radius: 8px;
