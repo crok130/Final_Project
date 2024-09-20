@@ -48,14 +48,13 @@
   <footer><%@ include file="footer.jsp" %></footer>
 
     <!--카카오 api key-->
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3b519bd660eac99c3b8c17fc5975dff9"></script>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3b519bd660eac99c3b8c17fc5975dff9=services"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3b519bd660eac99c3b8c17fc5975dff9&libraries=services"></script>
     <script>
       let regionSaveButton = document.getElementById("region-save-button");
       //지도 현재위치로 보여주기
       let mapContainer = document.getElementById("map"),
       mapOption = {
-    	center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
         level: 6, // 지도의 확대 레벨
       };
 
