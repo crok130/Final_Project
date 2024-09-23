@@ -12,6 +12,6 @@ public interface MemberService {
     String resetPasswordByIdAndEmail(MemberVO memberVO) throws Exception;
 
     // 로그인
-    String login(MemberVO vo) throws Exception;
+    MemberVO login(MemberVO vo) throws Exception;
 
 }

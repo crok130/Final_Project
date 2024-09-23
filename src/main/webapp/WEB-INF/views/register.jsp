@@ -62,7 +62,7 @@
     <%@ include file="nav.jsp"%>
     <div class="container">
         <div class="login-container">
-            <form action="reg" method="post" class="login-form" onsubmit="handleFormSubmit(event)">
+            <form action="reg" method="post" class="login-form">
                 <div>
                     <label for="membername" class="login-label">이름</label>
                     <input type="text" id="membername" name="membername" class="login-input" required>

@@ -40,10 +40,11 @@ public class MemberServiceImpl implements MemberService {
 
     // 로그인 처리
     @Override
-    public String login(MemberVO vo) throws Exception {
-        // MemberDAO를 사용하여 로그인 검증
-        MemberVO result = md.login(vo);
+    public MemberVO login(MemberVO vo) throws Exception {
+        // MemberVO 객체에서 memberid와 memberpass 값을 추출
+        MemberVO result = md.login(vo.getMemberid(), vo.getMemberpass());
         // 로그인 결과에 따라 성공 또는 실패 메시지 반환
-        return (result != null) ? "로그인 성공" : "로그인 실패";
+        return result;
     }
+
 }

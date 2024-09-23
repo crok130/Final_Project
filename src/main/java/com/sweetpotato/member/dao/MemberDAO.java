@@ -14,7 +14,10 @@ public interface MemberDAO {
      * @param member 회원 정보가 담긴 MemberVO 객체
      * @return 삽입된 행의 수
      */
-    @Insert("INSERT INTO member VALUES(null, #{memberid}, #{memberpass}, #{membername}, #{memberbirth}, #{memberphone}, #{memberemail}, #{memberaddr})")
+    @Insert("INSERT INTO member(" +
+            "memberid, memberpass, membername, memberphone, memberbirth, memberemail, memberaddr" +
+            ") VALUES (" +
+            "#{memberid}, #{memberpass}, #{membername}, #{memberphone}, #{memberbirth}, #{memberemail}, #{memberaddr})")
     int insertMember(MemberVO member);
 
     /**
@@ -40,5 +43,5 @@ public interface MemberDAO {
      * @return 로그인 성공 시 일치하는 회원 정보를 담고 있는 MemberVO 객체
      */
     @Select("SELECT * FROM member WHERE memberid = #{memberid} AND memberpass = #{memberpass}")
-    MemberVO login(MemberVO member);
+    MemberVO login(@Param("memberid") String memberid, @Param("memberpass") String memberpass) throws Exception;
 }
