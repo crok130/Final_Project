@@ -23,7 +23,7 @@
         background-color: #f3f3f3;
       }
     </style>
-<title>Insert title here</title>
+<title>insert title here</title>
 </head>
 <body>
     <div class="content-box">

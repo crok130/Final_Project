@@ -11,6 +11,22 @@
 <link rel="stylesheet" type="text/css" href="resources/css/login.css"/>
 <title>로그인</title>
 </head>
+<script>
+	window.onload = function() {
+		const cookies = document.cookie.split(';');
+		let memberId = '';
+		cookies.forEach(cookie => {
+			const [name, value] = cookie.split('=');
+			if(name.trim() === 'memberid'){
+				memberId = value;
+			}
+		});
+		if(memberId){
+			document.getElementById('username').value = memberId;
+            document.getElementById('rememberMe').checked = true; // 자동 로그인 체크
+		}
+	}
+</script>
 <body class="back-ye">
 <%@ include file="nav.jsp" %>
 <div class="container">
@@ -29,7 +45,6 @@
                     <input type="checkbox" id="rememberMe" name="rememberMe" class="login-checkbox">
                     <label for="rememberMe" class="login-checkbox-label">자동 로그인</label>
                 </div>
-                <a href="forgotPassword" class="login-forgot-link">비밀번호 찾기</a>
             </div>
             <button type="submit" class="login-button">로그인</button>
         </form>

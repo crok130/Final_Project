@@ -25,8 +25,8 @@
 					<input type="text" id="search" name="search" class="search"
 						placeholder="물품이나 동네를 검색해보세요" />
 				</form>
-				<a href="#" class="ghost-button orange">채팅하기</a> <a href="mypage"
-					class="ghost-button">내 페이지</a>
+				<a href="#" class="ghost-button orange">채팅하기</a> 
+				<a href="mypage" class="ghost-button">내 페이지</a>
 				<c:choose>
 					<c:when test="${empty sessionScope.userInfo}">
 						<a href="login" class="ghost-button" style="color: #1e1e1e">로그인</a>

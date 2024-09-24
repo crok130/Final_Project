@@ -1,15 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.sweetpotato.member.vo.*" %>
+<%
+	MemberVO userInfo = (MemberVO) session.getAttribute("user");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="resources/css/reset.css"/>
   <link rel="stylesheet" type="text/css" href="resources/css/footer.css"/>
-  <link rel="stylesheet" type="text/css" href="resources/css/mypage2.css"/>
+  <link rel="stylesheet" type="text/css" href="resources/css/mypage.css"/> <!-- CSS 파일 경로 수정 -->
   <link rel="stylesheet" type="text/css" href="resources/css/nav.css"/>
   <link rel="stylesheet" type="text/css" href="resources/css/global.css"/>
-<title>Insert title here</title>
+<title>마이페이지</title>
 </head>
 <body>
     <%@ include file="nav.jsp" %>
@@ -19,79 +22,88 @@
     <section id="content">
         <section id="user-profile">
             <h2 id="nickname">
-                최수빈
-                <span id="region_name">
-                    부산수영구  
-                </span>
-            </h2>
+			    ${userInfo.membername} <!-- 사용자 이름 -->
+			    <span id="region_name">
+			        ${userInfo.memberaddr} <!-- 사용자 주소 -->
+			    </span>
+			</h2>
             <ul id="profile-detail">
                 <li class="profile-detail-title">매너온도 <span class="profile-detail-count">100 °C</span></li>
             </ul>
             <div id="profile-image">
-                    <img alt="동동히" src="https://d1unjqcospf8gs.cloudfront.net/assets/users/default_profile_80-c649f052a34ebc4eee35048815d8e4f73061bf74552558bb70e07133f25524f9.png" />
+                    <img alt="프로필 이미지" src="https://d1unjqcospf8gs.cloudfront.net/assets/users/default_profile_80-c649f052a34ebc4eee35048815d8e4f73061bf74552558bb70e07133f25524f9.png" />
             </div>
-                <a href="profile" >
+            <div>
+            	<!-- 프로필 수정하기 버튼 -->
+                <a href="editProfile">
                     <button id="edit-profile-button">프로필 수정하기</button>
                 </a>
+                <!-- 비밀번호 수정하기 버튼 -->
+                <a href="forgotPassword">
+                	<button id="edit-password-button">비밀번호 수정하기</button>
+                </a>
+			</div>
         </section>
         <div id="user-records-detail">
             <section id="user-filter">
                 <ul>
-                    <li><a class="active" href="#proceed-products-tab">판매중 </a></li>
-                    <li><a href="#products-tab">판매완료 링크</a></li>
-                    <li><a href="#reviews-tab">거래후기 링크</a></li>
+                    <li><a class="active" href="#proceed-products-tab">판매중</a></li>
+                    <li><a href="#products-tab">판매완료</a></li>
+                    <li><a href="#reviews-tab">거래후기</a></li>
                 </ul>
             </section>
-            <!-- 판매 물품 -->
+            <!-- 판매 중인 상품 -->
             <div id="proceed-products-tab">
                 <div class="container column center">
                   <div class="full-box trade-box column">
                     <div class="flex-box full-box card-container between">
+                        <c:forEach var="product" items="${proceedProducts}">
                         <div class="card-box">
-                          <a href="#" class="trade-text-link">
+                          <a href="tradePost?id=${product.id}" class="trade-text-link">
                               <div class="card-img">
-                                      <img src="" alt="판매완료상품이미지">   
+                                      <img src="${product.imageUrl}" alt="${product.name}">   
                               </div>
                               <div class="card-info-box">
-                                  <h5>2000원팝니다</h5>
-                                  <p class="bold">2500원</p>
-                                  <p>부산광안리</p>
+                                  <h5>${product.name}</h5>
+                                  <p class="bold">${product.price}원</p>
+                                  <p>${product.location}</p>
                                   <div class="flex-box">
-                                      <p>조회 30</p>
+                                      <p>조회 ${product.views}</p>
                                       <p>·</p>
-                                      <p>채팅 4</p>
+                                      <p>채팅 ${product.chats}</p>
                                   </div>
                               </div>
                           </a>
                         </div>
-                      
-            
+                        </c:forEach>
                     </div>
                   </div>
                 </div>
               </div>
-             <!-- 판매완료 물품 -->
+             <!-- 판매완료 상품 -->
               <div id="products-tab" style="display: none;">
                 <div class="container column center">
                   <div class="full-box trade-box column">
                     <div class="flex-box full-box card-container between">
+                        <c:forEach var="product" items="${completedProducts}">
                         <div class="card-box">
-                          <a href="{% url 'trade_post' product.id %}" class="trade-text-link">
+                          <a href="tradePost?id=${product.id}" class="trade-text-link">
                               <div class="card-img">   
-                                      <img src="" alt="상품이미지">
+                                      <img src="${product.imageUrl}" alt="${product.name}">
                               </div>
                               <div class="card-info-box">
-                                  <h5>콘스탄틴 어베인팝니다</h5>
-                                  <p class="bold">700000원</p>
-                                  <p>부산수영구</p>
+                                  <h5>${product.name}</h5>
+                                  <p class="bold">${product.price}원</p>
+                                  <p>${product.location}</p>
                                   <div class="flex-box">
-                                      <p>조회 7</p>
+                                      <p>조회 ${product.views}</p>
                                       <p>·</p>
-                                      <p>채팅 2</p>
+                                      <p>채팅 ${product.chats}</p>
                                   </div>
                               </div>
                           </a>
                         </div>
+                        </c:forEach>
                     </div>
                   </div>
                 </div>
@@ -101,35 +113,34 @@
               <div id="reviews-tab" style="display: none;">
                 <section id="user-records" class="user-reviews" data-total-page="1" data-current-page="1">
                     <ul id="reviews-list">
+                        <c:forEach var="review" items="${userReviews}">
                         <li class="review">
                             <div class="review-profile-photo">
-                                    <img alt="동동히" src="https://d1unjqcospf8gs.cloudfront.net/assets/users/default_profile_80-c649f052a34ebc4eee35048815d8e4f73061bf74552558bb70e07133f25524f9.png" />
-                                
+                                    <img alt="${review.writerName}" src="${review.writerImage}" />
                             </div>
 
                             <div class="review-details">
                                 <div class="review-writer-info">
                                     <div class="review-writer-nickname">
-                                        <a href="#">리뷰남긴사람</a>
+                                        <a href="#">${review.writerName}</a>
                                     </div>
                                     <div class="review-writer-region-name">
-                                        리뷰자사는곳
+                                        ${review.writerLocation}
                                     </div>
                                 </div>
                                 <div class="review-content">
                                     <p>
-                                        리뷰내용
+                                        ${review.content}
                                     </p>
                                 </div>
                                 <div class="review-time">
-                                    {{review.created_at}}
+                                    ${review.createdAt}
                                 </div>
                             </div>
                         </li>
-                        <!-- 다른 리뷰들도 동일한 구조로 추가할 수 있습니다. -->
+                        </c:forEach>
                     </ul>
                 </section>
-                <!-- 거래 후기 내용을 표시하는 코드 (생략) -->
              </div>
         </div>
     </section>

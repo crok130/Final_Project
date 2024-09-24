@@ -1,5 +1,9 @@
 package com.sweetpotato.member.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,8 +14,6 @@ import com.sweetpotato.member.service.MemberService;
 import com.sweetpotato.member.vo.MemberVO;
 
 import lombok.RequiredArgsConstructor;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
@@ -35,14 +37,22 @@ public class MemberController {
     
     // 로그인 처리
     @PostMapping("login")
-    public String login(MemberVO memberVO, Model model, HttpSession session) {
+    public String login(MemberVO memberVO, Model model, HttpSession session, HttpServletResponse response) {
         try {
             // 로그인 시도
-        	MemberVO result = ms.login(memberVO);
+            MemberVO result = ms.login(memberVO);
             model.addAttribute("message", result);
-            if ( result != null) {
+            if (result != null) {
                 // 로그인 성공 시 세션에 사용자 정보 저장
                 session.setAttribute("userInfo", result); // 필요에 따라 더 많은 정보를 저장 가능
+
+                // 자동 로그인 체크 시 쿠키 설정
+                if (memberVO.isRememberMe()) { // 자동 로그인 체크박스의 상태 확인
+                    Cookie loginCookie = new Cookie("memberid", result.getMemberid());
+                    loginCookie.setMaxAge(60 * 60 * 24 * 30); // 30일 동안 유지
+                    response.addCookie(loginCookie);
+                }
+
                 return "redirect:/main"; // 실제 로그인 후 이동할 페이지 경로로 변경
             } else {
                 // 로그인 실패 시 로그인 페이지로 이동
@@ -78,8 +88,19 @@ public class MemberController {
 
     // 마이페이지 요청
     @RequestMapping(value = "mypage", method = RequestMethod.GET)
-    public String mypage() {
-        return "mypage";
+    public String mypage(Model model, HttpSession session) {
+        // 세션에서 사용자 정보를 가져옵니다.
+        MemberVO userInfo = (MemberVO) session.getAttribute("user");
+
+        // userInfo가 null이 아닐 경우에만 모델에 추가합니다.
+        if (userInfo != null) {
+            model.addAttribute("userInfo", userInfo); // 모델에 사용자 정보 추가
+            return "mypage"; // JSP 파일명
+        } else {
+            // 사용자가 로그인하지 않았을 경우 처리할 로직을 추가할 수 있습니다.
+            // 예: 로그인 페이지로 리다이렉트
+            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+        }
     }
 
     // 비밀번호 재설정 페이지 요청
