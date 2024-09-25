@@ -25,7 +25,7 @@
                 <c:if test="${empty message}">
                     <p>비밀번호 재설정 결과를 확인할 수 없습니다.</p>
                 </c:if>
-                <a href="forgotPassword" class="login-button">돌아가기</a>
+                <a href="main" class="login-button">돌아가기</a>
             </div>
         </div>
     </div>

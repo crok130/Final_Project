@@ -36,18 +36,15 @@ public class PasswordResetController {
     @PostMapping("/resetPassword")
     public String resetPassword(MemberVO memberVO, Model model) {
         try {
-            // MemberVO 객체를 사용하여 비밀번호 재설정을 수행
             String result = ms.resetPasswordByIdAndEmail(memberVO);
-            // 비밀번호 재설정 결과를 모델에 추가
-            model.addAttribute("message", result);
-            // 비밀번호 재설정 결과 페이지로 이동
-            return "resetPasswordResult"; // 비밀번호 재설정 결과 페이지의 JSP 파일 이름
+            // 비밀번호 재설정 성공 시
+            return "redirect:/forgotPassword?message=success";
         } catch (Exception e) {
             e.printStackTrace();
-            // 오류 발생 시 모델에 에러 메시지 추가
-            model.addAttribute("message", "비밀번호 재설정 중 오류가 발생했습니다.");
-            // 비밀번호 재설정 결과 페이지로 이동
-            return "resetPasswordResult"; // 비밀번호 재설정 결과 페이지의 JSP 파일 이름
+            // 비밀번호 재설정 실패 시
+            return "redirect:/forgotPassword?message=error";
         }
     }
+
+
 }

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.sweetpotato.member.vo.*" %>
 <%
-	MemberVO userInfo = (MemberVO) session.getAttribute("user");
+	MemberVO userInfo = (MemberVO) session.getAttribute("userInfo");
 %>
 <!DOCTYPE html>
 <html>
@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="resources/css/reset.css"/>
   <link rel="stylesheet" type="text/css" href="resources/css/footer.css"/>
-  <link rel="stylesheet" type="text/css" href="resources/css/mypage.css"/> <!-- CSS 파일 경로 수정 -->
+  <link rel="stylesheet" type="text/css" href="resources/css/mypage2.css"/>
   <link rel="stylesheet" type="text/css" href="resources/css/nav.css"/>
   <link rel="stylesheet" type="text/css" href="resources/css/global.css"/>
 <title>마이페이지</title>
@@ -40,7 +40,7 @@
                 </a>
                 <!-- 비밀번호 수정하기 버튼 -->
                 <a href="forgotPassword">
-                	<button id="edit-password-button">비밀번호 수정하기</button>
+                	<button id="edit-profile-button">비밀번호 수정하기</button>
                 </a>
 			</div>
         </section>

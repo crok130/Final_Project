@@ -10,6 +10,28 @@
     <link rel="stylesheet" type="text/css" href="resources/css/footer.css"/>
     <link rel="stylesheet" type="text/css" href="resources/css/login.css"/>
     <title>비밀번호 재설정</title>
+    
+    <script>
+        // URL 파라미터에서 메시지를 추출하는 함수
+        function getParameterByName(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // message 파라미터가 있는지 확인하고, 있으면 처리
+        const message = getParameterByName('message');
+        if (message) {
+            if (message === 'success') {
+                // 성공 메시지일 경우
+                alert('비밀번호가 성공적으로 변경되었습니다.');
+                window.location.href = 'main'; // '확인' 후 메인 페이지로 이동
+            } else {
+                // 실패 메시지일 경우
+                alert('비밀번호 변경에 실패했습니다. 다시 시도해 주세요.');
+                window.location.href = 'forgotPassword'; // '확인' 후 비밀번호 재설정 페이지로 이동
+            }
+        }
+    </script>
 </head>
 <body class="back-ye">
     <%@ include file="nav.jsp" %>
@@ -30,12 +52,6 @@
                 </div>
                 <button type="submit" class="login-button">비밀번호 재설정</button>
             </form>
-            <!-- 비밀번호 재설정 결과 메시지 표시 -->
-            <div>
-                <c:if test="${not empty message}">
-                    <p>${message}</p>
-                </c:if>
-            </div>
         </div>
     </div>
     <%@ include file="footer.jsp" %>

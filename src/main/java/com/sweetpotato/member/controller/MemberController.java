@@ -90,11 +90,11 @@ public class MemberController {
     @RequestMapping(value = "mypage", method = RequestMethod.GET)
     public String mypage(Model model, HttpSession session) {
         // 세션에서 사용자 정보를 가져옵니다.
-        MemberVO userInfo = (MemberVO) session.getAttribute("user");
+        MemberVO userInfo = (MemberVO) session.getAttribute("userInfo");
 
         // userInfo가 null이 아닐 경우에만 모델에 추가합니다.
         if (userInfo != null) {
-            model.addAttribute("userInfo", userInfo); // 모델에 사용자 정보 추가
+            // model.addAttribute("userInfo", userInfo); // 모델에 사용자 정보 추가
             return "mypage"; // JSP 파일명
         } else {
             // 사용자가 로그인하지 않았을 경우 처리할 로직을 추가할 수 있습니다.
