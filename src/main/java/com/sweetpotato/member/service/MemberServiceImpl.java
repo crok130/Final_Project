@@ -1,5 +1,6 @@
 package com.sweetpotato.member.service;
 
+import org.springframework.dao.support.DaoSupport;
 import org.springframework.stereotype.Service;
 import com.sweetpotato.member.dao.MemberDAO;
 import com.sweetpotato.member.vo.MemberVO;
@@ -46,5 +47,10 @@ public class MemberServiceImpl implements MemberService {
         // 로그인 결과에 따라 성공 또는 실패 메시지 반환
         return result;
     }
+
+	@Override
+	public MemberVO getMemberById(String memberid) throws Exception {
+		return md.getMemberById(memberid);
+	}
 
 }

@@ -13,5 +13,8 @@ public interface MemberService {
 
     // 로그인
     MemberVO login(MemberVO vo) throws Exception;
+    
+    // memberid 사용자 아이디로 사용자 정보 검색
+    MemberVO getMemberById(String memberid) throws Exception;
 
 }

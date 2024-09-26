@@ -14,28 +14,19 @@
 </head>
 <script>
 	window.onload = function() {
+		// 쿠키에서 자동 로그인 확인
 		const cookies = document.cookie.split(';');
 		let memberId = '';
 		cookies.forEach(cookie => {
 			const [name, value] = cookie.split('=');
-			if(name.trim() === 'memberid'){
+			if (name.trim() === 'memberid') {
 				memberId = value;
 			}
 		});
-		if(memberId){
+		if (memberId) {
 			document.getElementById('username').value = memberId;
             document.getElementById('rememberMe').checked = true; // 자동 로그인 체크
 		}
-	}
-	<%
-	    String alertMessage = (String) session.getAttribute("alertMessage");
-	    if (alertMessage != null) {
-	%>
-	    alert("<%= alertMessage %>");
-	<%
-	    session.removeAttribute("alertMessage"); // 메시지를 사용한 후 세션에서 제거
-	    }
-	%>
 </script>
 <body class="back-ye">
 	<%@ include file="nav.jsp"%>
@@ -43,20 +34,17 @@
 		<div class="login-container">
 			<form method="post" action="login" class="login-form">
 				<div>
-					<label for="username" class="login-label">아이디</label> <input
-						type="text" id="username" name="memberid" class="login-input"
-						required>
+					<label for="username" class="login-label">아이디</label> 
+					<input type="text" id="username" name="memberid" class="login-input" required>
 				</div>
 				<div>
-					<label for="password" class="login-label">비밀번호</label> <input
-						type="password" id="password" name="memberpass"
-						class="login-input" required>
+					<label for="password" class="login-label">비밀번호</label> 
+					<input type="password" id="password" name="memberpass" class="login-input" required>
 				</div>
 				<div class="login-options">
 					<div class="remember-me">
-						<input type="checkbox" id="rememberMe" name="rememberMe"
-							class="login-checkbox"> <label for="rememberMe"
-							class="login-checkbox-label">자동 로그인</label>
+						<input type="checkbox" id="rememberMe" name="rememberMe" class="login-checkbox"> 
+						<label for="rememberMe" class="login-checkbox-label">자동 로그인</label>
 					</div>
 				</div>
 				<button type="submit" class="login-button">로그인</button>

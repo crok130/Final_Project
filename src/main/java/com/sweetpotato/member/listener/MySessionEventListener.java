@@ -39,26 +39,25 @@ public class MySessionEventListener implements HttpSessionListener, HttpSessionA
 	@Override
 	public void attributeAdded(HttpSessionBindingEvent event) {
 		System.out.println("attributeAdded 호출");
-		HttpSession session = event.getSession();
-		System.out.printf("SESSION ID : %s %n", session.getId());
-		System.out.printf("SESSION add : name : %s, value : %s %n", event.getName(),event.getValue());
-		if(event.getName().equals("userInfo")) {
-			MemberVO newUser = (MemberVO)event.getValue();
-			
-			Enumeration<Object> enumeration = sessionRepository.elements();
-			while(enumeration.hasMoreElements()) {
-				HttpSession ses = (HttpSession)enumeration.nextElement();
-				MemberVO user = (MemberVO)ses.getAttribute("userInfo");
-				// repository에 저장된 기존에 로그인한 사용자와
-				// 새로 로그인하려는 사용자의 u_id값 비교
-				if(user != null && user.getMemberid().equals(newUser.getMemberid())) {
-					// 중복 로그인 사용자
-					// ses.removeAttribute("userInfo");
-					ses.setAttribute("expire", "중복로그인으로 로그아웃됩니다.");
-				}
-			}
-			sessionRepository.put(session.getId(), session);
-		}
+	    HttpSession session = event.getSession();
+	    System.out.printf("SESSION ID : %s %n", session.getId());
+	    System.out.printf("SESSION add : name : %s, value : %s %n", event.getName(), event.getValue());
+
+	    if (event.getName().equals("userInfo")) {
+	        MemberVO newUser = (MemberVO) event.getValue();
+	        
+	        Enumeration<Object> enumeration = sessionRepository.elements();
+	        while (enumeration.hasMoreElements()) {
+	            HttpSession ses = (HttpSession) enumeration.nextElement();
+	            MemberVO user = (MemberVO) ses.getAttribute("userInfo");
+
+	            if (user != null && user.getMemberid().equals(newUser.getMemberid())) {
+	                // 중복 로그인 감지 -> 해당 세션에 expire 속성 추가
+	                ses.setAttribute("expire", "다른 위치에서 로그인 중입니다.");
+	            }
+	        }
+	        sessionRepository.put(session.getId(), session);
+	    }
 	}
 
 	/**

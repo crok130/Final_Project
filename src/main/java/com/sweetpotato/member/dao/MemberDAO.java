@@ -44,4 +44,7 @@ public interface MemberDAO {
      */
     @Select("SELECT * FROM member WHERE memberid = #{memberid} AND memberpass = #{memberpass}")
     MemberVO login(@Param("memberid") String memberid, @Param("memberpass") String memberpass) throws Exception;
+
+    @Select("SELECT * FROM member WHERE memberid = #{memberid}")
+	MemberVO getMemberById(String memberid) throws Exception;
 }
