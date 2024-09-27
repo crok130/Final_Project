@@ -26,8 +26,11 @@ public class EmailAuthController extends HttpServlet {
 		if (email != null && !email.isEmpty()) {
 			// 6자리 랜덤 인증 코드 생성
 			String authCode = String.format("%06d", new Random().nextInt(1000000));
-			String body = "본 메일은 고구마 마켓 회원가입 인증 메일입니다. \n회원가입 인증 코드: " + authCode
-					+ "입니다.\n 가입을 진심으로 환영합니다.\n 인증코드를 코드란에 입력 후 인증버튼을 눌러주세요.";
+			String body = "본 메일은 고구마 마켓 회원가입 인증 메일입니다. \n"
+				    + "회원가입 인증 코드: <span style='color:red;'>" + authCode + "</span>입니다.\n"
+				    + "가입을 진심으로 환영합니다.\n"
+				    + "인증코드를 코드란에 입력 후 인증버튼을 눌러주세요.";
+
 
 			try {
 				// EmailUtil 객체를 생성하여 이메일 전송
