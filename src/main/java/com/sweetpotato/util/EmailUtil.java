@@ -19,7 +19,7 @@ public class EmailUtil {
     // 이메일 계정
     private static final String EMAIL = "star8795@naver.com";
     // 이메일 계정의 비밀번호 (앱 비밀번호 사용 시)
-    private static final String PASSWORD = "Kim168017**"; 
+    private static final String PASSWORD = "EXV7BNRUJ6KP"; 
 
     // 이메일 전송 메서드
     public void sendEmail(String toEmail, String subject, String body) throws MessagingException {
