@@ -11,7 +11,6 @@ public class MemberVO {
     private String memberbirth;
     private String memberphone;
     private String memberemail;
-    private String memberaddr;
     
     // 자동 로그인 체크박스 상태를 저장할 필드
     private boolean rememberMe;

@@ -15,9 +15,9 @@ public interface MemberDAO {
      * @return 삽입된 행의 수
      */
     @Insert("INSERT INTO member(" +
-            "memberid, memberpass, membername, memberphone, memberbirth, memberemail, memberaddr" +
+            "memberid, memberpass, membername, memberphone, memberbirth, memberemail" +
             ") VALUES (" +
-            "#{memberid}, #{memberpass}, #{membername}, #{memberphone}, #{memberbirth}, #{memberemail}, #{memberaddr})")
+            "#{memberid}, #{memberpass}, #{membername}, #{memberphone}, #{memberbirth}, #{memberemail})")
     int insertMember(MemberVO member);
 
     /**

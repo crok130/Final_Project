@@ -88,10 +88,6 @@
                     <input type="text" id="memberphone" name="memberphone" class="login-input" required>
                 </div>
                 <div>
-                    <label for="memberaddr" class="login-label">주소</label>
-                    <input type="text" id="memberaddr" name="memberaddr" class="login-input" required>
-                </div>
-                <div>
                     <label for="memberemail" class="login-label">이메일</label>
                     <input type="email" id="memberemail" name="memberemail" required>
                 </div>
