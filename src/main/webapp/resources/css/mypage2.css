@@ -17,6 +17,7 @@ body {
 /* 사용자 프로필 스타일링 */
 
 #user-profile {
+	margin-top : 20px;
     background-color: #fff;
     border: 1px solid #ddd;
     padding: 20px;

@@ -1,33 +1,40 @@
 package com.sweetpotato.community;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.sweetpotato.board.service.BoardService;
+import com.sweetpotato.board.vo.BoardVO;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
+@RequiredArgsConstructor
 public class HomeController {
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
-		return "main";
+	private final BoardService bs;
+	
+	@GetMapping("/")
+	public String main(Model model) throws Exception {
+	    List<BoardVO> popularItems = bs.listAll(); // 모든 데이터를 가져옵니다. 실제로는 인기매물 필터링이 필요할 수도 있습니다.
+	    model.addAttribute("popularItems", popularItems);
+	    return "main";
 	}
 	
-	@RequestMapping(value = "main", method = RequestMethod.GET)
-	public String main() {
-		return "main";
-	}
+	@GetMapping("main")
+    public String mainPage(Model model) throws Exception {
+        List<BoardVO> popularItems = bs.listAll(); // 모든 데이터를 가져옵니다. 실제로는 인기매물 필터링이 필요할 수도 있습니다.
+        model.addAttribute("popularItems", popularItems);
+        return "main";
+    }
 	
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String login() {
@@ -39,25 +46,6 @@ public class HomeController {
 		return "register";
 	}
 	
-	@RequestMapping(value = "trade", method = RequestMethod.GET)
-	public String trade() {
-		return "trade";
-	}
-	
-	@RequestMapping(value = "write", method = RequestMethod.GET)
-	public String write() {
-		return "write";
-	}
-	
-	@RequestMapping(value = "search", method = RequestMethod.GET)
-	public String search() {
-		return "search";
-	}
-	
-	@RequestMapping(value = "trade_board", method = RequestMethod.GET)
-	public String trade_board() {
-		return "trade_board";
-	}
 	
 	@RequestMapping(value = "profile", method = RequestMethod.GET)
 	public String profile() {
@@ -68,5 +56,10 @@ public class HomeController {
 	@RequestMapping(value = "mypage", method = RequestMethod.GET)
 	public String mypage() {
 		return "mypage";
+	}
+	
+	@GetMapping("location")
+	public String location() {
+		return "location";
 	}
 }

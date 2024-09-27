@@ -1,5 +1,7 @@
 package com.sweetpotato.board.vo;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -7,11 +9,15 @@ public class BoardVO {
 
 	private int boardno;
 	private String memberno;
-	private String boardcategory;
-	private int boardprice;
+	private String main_category;
+	private String sub_category;
+	private int price;
 	private String status;
-	private String boardimg;
-	private String boardtitle;
-	private String boardcontent;
+	private String img;
+	private String title;
+	private String content;
+	private int viewcnt;
+	private String region;
 	
+
 }

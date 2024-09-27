@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,35 +83,57 @@
 
       <img src="resources/img/landing2.png" alt=""/>
     </div>
-  <div>
+ <div>
     
     <!-- 네번째 섹션 -->
-   <div class="content-box trade-info-section">
+    <div class="content-box trade-info-section">
       <div class="container trade-section">
         <h1>중고거래 인기매물</h1>
         <div class="full-box trade-box">
           <div class="flex-box full-box card-container between">
+           <c:forEach var="item" items="${popularItems}">
             <div class="card-box">
-              <a href="trade_board" class="trade-text-link">
+              <a href="trade_board?boardno=${item.boardno}" class="trade-text-link">
+                
                 <!-- img -->
-                <div class="card-img"> 
-                    <img src="resources/img/ra.PNG" alt="">
+                <div class="card-img">
+						<c:set var="firstCommaIndex" value="${fn:indexOf(item.img, ',')}" />
+						<c:choose>
+							     <%-- 이미지가 하나만 있을 때 (쉼표가 없을 경우) --%>
+							    <c:when test="${firstCommaIndex == -1}">
+							        <img src="${pageContext.request.contextPath}/resources/imgs/${item.img}" alt="상품이미지">
+							    </c:when>
+							   <%-- 쉼표가 있는 경우 첫 번째 이미지 추출 ---%>
+							    <c:otherwise>
+							        <img src="${pageContext.request.contextPath}/resources/imgs/${fn:substring(item.img, 0, firstCommaIndex)}" alt="상품이미지">
+							    </c:otherwise>
+						</c:choose>
                 </div>
-
                 <!-- info -->
                 <div class="card-info-box">
-                  <h5>라탄팝니다</h5>
-                  <p class="bold">20000원</p>
-                  <p>부산수영구</p>
+                  <h5>${item.title}</h5>
+                  <p class="bold">${item.price}원</p>
+                  <p>${item.region}</p>
                   <div class="flex-box">
-                    <p>조회 40</p>
+                    <p>조회 ${item.viewcnt}</p>
                     <p>·</p>
-                    <p>채팅 30</p>
+                    <p>채팅 5</p>
                   </div>
                 </div>
               </a>
             </div>
+            </c:forEach>
+            <c:if test="${fn:length(searchResults) % 4 != 0}">
+				<c:forEach begin="1" end="${4 - (fn:length(searchResults) % 4)}">
+				<div class="card-box empty"></div>
+				</c:forEach>
+			</c:if>
           </div>
+          <a href="trade">인기매물 더 보기</a>
+        </div>
+      </div>
+    </div>
+ </div>
     <%@ include file="footer.jsp" %>
 </body>
 </html>
