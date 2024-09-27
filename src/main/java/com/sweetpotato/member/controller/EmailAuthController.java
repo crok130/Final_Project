@@ -15,7 +15,7 @@ import com.sweetpotato.util.EmailUtil;
 @WebServlet("/sendEmail")
 public class EmailAuthController extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static final String SUBJECT = "회원가입 인증 코드"; // 이메일 제목
+    private static final String SUBJECT = "고구마 마켓 회원가입 인증 코드입니다"; // 이메일 제목
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,7 +25,7 @@ public class EmailAuthController extends HttpServlet {
         if (email != null && !email.isEmpty()) {
             // 6자리 랜덤 인증 코드 생성
             String authCode = String.format("%06d", new Random().nextInt(1000000));
-            String body = "회원가입 인증 코드: " + authCode;
+            String body = "본 메일은 고구마 마켓 회원가입 인증 메일입니다. \n회원가입 인증 코드: " + authCode + "입니다.\n 가입을 진심으로 환영합니다.";
             
             try {
                 // EmailUtil 객체를 생성하여 이메일 전송
