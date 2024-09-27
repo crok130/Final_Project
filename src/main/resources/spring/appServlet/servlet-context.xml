@@ -28,6 +28,7 @@
 	<context:component-scan base-package="com.sweetpotato.board.service" />
 	<context:component-scan base-package="com.sweetpotato.board.controller" />
 	<context:component-scan base-package="com.sweetpotato.chat.controller" />
+	<context:component-scan base-package="com.sweetpotato.region.controller" />
 	<aop:aspectj-autoproxy />
 	<context:component-scan base-package="com.sweetpotato.common.aop" />
 </beans:beans>

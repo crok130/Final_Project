@@ -26,11 +26,11 @@
     <div class="container column center">
       <div class="region-setting-box full-box">
         <label for="region-setting">동네 설정</label>
-        <form method="POST" action="/set_region/" id="region-form">
+        <form id="region-form">
           <div class="flex-box full-box between region-input">
             <input type="text" id="region-setting" class="region-setting" name="region-setting"
               placeholder="예) 서울 강서구 화곡동" value=""/>
-            <button type="submit" class="ghost-button orange region-setting" style="width=15%" id="set-region-button">
+            <button type="button" class="ghost-button orange region-setting" style="width=15%" id="set-region-button" onclick="userMap();">
                수정  저장 
             </button>
           </div>
@@ -60,60 +60,7 @@
 
       let map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
       // HTML5의 geolocation으로 사용할 수 있는지 확인
-if (navigator.geolocation) {
-  // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-  navigator.geolocation.getCurrentPosition(function (position) {
-    let lat = position.coords.latitude; // 위도
-    let lon = position.coords.longitude; // 경도
 
-    let locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-      message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용입니다
-
-    // 마커와 인포윈도우를 표시합니다
-    displayMarker(locPosition, message);
-    let geocoder = new kakao.maps.services.Geocoder();
-
-    function GetAddr(lat, lon) {
-      let geocoder = new kakao.maps.services.Geocoder();
-
-      let coord = new kakao.maps.LatLng(lat, lon);
-      let callback = function (result, status) {
-        if (status === kakao.maps.services.Status.OK) {
-          console.log(result);
-          let currentLocation = result[0].address.address_name;
-
-          document.getElementById("region-info").innerText =
-            "현재위치는 " + result[0].address.address_name + "입니다.";
-
-          let regionSettingValue = document.querySelector(
-            'input[name="region-setting"]'
-          ).value;
-          let regionArray = regionSettingValue.split(" ");
-          let lastRegionPart = regionArray[regionArray.length - 1];
-
-          let currentLocationArray = currentLocation.split(" ");
-          let regionJudgeText = document.getElementById("region-judge");
-
-          if (currentLocationArray.includes(lastRegionPart)) {
-            regionJudgeText.innerText = "현재 위치가 내 동네 설정과 같습니다.";
-          } else {
-            regionJudgeText.innerText = "현재 위치가 내 동네 설정과 다릅니다.";
-            regionSaveButton.classList.toggle("button-disabled");
-          }
-        }
-      };
-      geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
-    }
-    GetAddr(lat, lon);
-  });
-} else {
-  // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-
-  let locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
-    message = "사용자 환경문제로 위치정보를 사용할 수 없습니다";
-
-  displayMarker(locPosition, message);
-}
 
 // 지도에 마커와 인포윈도우를 표시하는 함수
 function displayMarker(locPosition, message) {
@@ -152,6 +99,42 @@ document.getElementById("region-form").addEventListener("submit", function (e) {
 regionSaveButton.addEventListener("click", function () {
   alert("인증이 완료되었습니다");
 });
+
+userMap();
+function userMap() {
+	  if (navigator.geolocation) {
+	    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+	    navigator.geolocation.getCurrentPosition(
+	      function (position) {
+	        let lat = position.coords.latitude; // 위도
+	        let lon = position.coords.longitude; // 경도
+
+	        let locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+	          message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용입니다
+
+	        // 마커와 인포윈도우를 표시합니다
+	        displayMarker(locPosition, message);
+
+	        // 위치 정보를 주소로 변환하여 표시
+	        GetAddr(lat, lon);
+	      },
+	      function (error) {
+	        console.error("위치 정보를 가져오는 데 실패했습니다.", error);
+	      },
+	      {
+	        enableHighAccuracy: true, // 위치 정보를 더 정확하게 가져옵니다
+	        timeout: 5000, // 5초 이내에 위치 정보를 가져오지 못하면 오류 발생
+	        maximumAge: 0, // 캐시된 위치 정보 사용 안함
+	      }
+	    );
+	  } else {
+	    // GeoLocation을 사용할 수 없을 때
+	    let locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
+	      message = "사용자 환경문제로 위치정보를 사용할 수 없습니다";
+	    displayMarker(locPosition, message);
+	  }
+	}
+
     </script>
   </body>
 </html>
