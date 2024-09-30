@@ -1,0 +1,88 @@
+.login-container{
+	margin-top: 100px;
+	width: 440px;
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    /*margin: auto;*/
+}
+
+
+.login-input{
+    width: -webkit-fill-available;
+    background-color: #fff;
+    border: 1px solid #fa6616;
+    border-radius: 100px;
+    padding: 13px;
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.login-form label{
+    display: block;
+    margin-bottom:12px
+}
+
+
+.login-button{
+    width: 100%;
+    background-color: #fa6616;
+    border-radius: 100px;
+    padding: 13px;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor:pointer;
+}
+
+.register-reco{
+    display: flex;
+    flex-direction: column;
+}
+
+button:hover{
+    background-color: #ff823f;
+}
+
+.register-reco{
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.register-reco a{
+    text-decoration: none;
+    color: #ff823f;
+    cursor: pointer;
+}
+
+.login-options {
+    display: flex;
+    align-items: center; /* 체크박스와 텍스트를 수직 가운데 정렬 */
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center; /* 체크박스와 텍스트를 수평 가운데 정렬 */
+}
+
+.login-checkbox-label {
+    margin-left: 5px; /* 체크박스와 텍스트 사이의 간격 */
+}
+
+.login-forgot-link {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.login-forgot-link:hover {
+    text-decoration: underline;
+}

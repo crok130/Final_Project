@@ -1,0 +1,17 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<div class="footer">
+    <div class="container flex-box between">
+      <div class="buttons flex-box">
+        <a href="trade">중고거래</a>
+        <a href="#">채팅하기</a>
+      </div>
+      <div>
+        <p class="bold" style="margin-bottom:8px">당근 앱 다운로드</p>
+        <div class="download-center">
+          <a href="https://apps.apple.com/kr/app/당근/id1018769995"><button>App Store</button></a>
+          <a href="https://play.google.com/store/apps/details?id=com.towneers.www&hl=ko&gl=US"><button>Google Play</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
