@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class MemberVO {
+
     private int memberno;
     private String memberid;
     private String memberpass;
@@ -25,4 +26,5 @@ public class MemberVO {
     public void setRememberMe(boolean rememberMe) {
         this.rememberMe = rememberMe;
     }
+
 }

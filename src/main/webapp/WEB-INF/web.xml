@@ -42,11 +42,13 @@
 		
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+
 		<!--  Creates the Spring Container shared by all Servlets and Filters  -->
 		<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 		<listener-class>com.sweetpotato.member.listener.MySessionEventListener</listener-class>
 		</listener>
+
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>

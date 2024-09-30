@@ -41,6 +41,5 @@ public class HomeController {
 	public String location() {
 		return "location";
 	}
-	
 
 }

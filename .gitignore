@@ -11,6 +11,8 @@ tmp/
 *~.nib
 local.properties
 
+
+
 .loadpath
 .recommenders
 
@@ -36,6 +38,8 @@ local.properties
 .buildpath
 
 # sbteclipse plugin
+
+
 
 
 # Tern plugin
@@ -93,8 +97,7 @@ hs_err_pid*
 replay_pid*
 
 ### Maven ###
-
-
+p
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 
