@@ -35,31 +35,11 @@ public class HomeController {
         model.addAttribute("popularItems", popularItems);
         return "main";
     }
-	
-	@RequestMapping(value = "login", method = RequestMethod.GET)
-	public String login() {
-		return "login";
-	}
-	
-	@RequestMapping(value = "register", method = RequestMethod.GET)
-	public String register() {
-		return "register";
-	}
-	
-	
-	@RequestMapping(value = "profile", method = RequestMethod.GET)
-	public String profile() {
-		return "profile";
-	}
-	
-	
-	@RequestMapping(value = "mypage", method = RequestMethod.GET)
-	public String mypage() {
-		return "mypage";
-	}
+
 	
 	@GetMapping("location")
 	public String location() {
 		return "location";
 	}
+
 }

@@ -1,10 +1,15 @@
 .login-container{
-    width: 440px;
+
+	margin-top: 100px;
+	width: 440px;
+
     min-height: 100dvh;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin: auto;
+
+    /*margin: auto;*/
+
 }
 
 
@@ -59,4 +64,31 @@ button:hover{
     text-decoration: none;
     color: #ff823f;
     cursor: pointer;
+
 }
+
+.login-options {
+    display: flex;
+    align-items: center; /* 체크박스와 텍스트를 수직 가운데 정렬 */
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center; /* 체크박스와 텍스트를 수평 가운데 정렬 */
+}
+
+.login-checkbox-label {
+    margin-left: 5px; /* 체크박스와 텍스트 사이의 간격 */
+}
+
+.login-forgot-link {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.login-forgot-link:hover {
+    text-decoration: underline;
+}
+
