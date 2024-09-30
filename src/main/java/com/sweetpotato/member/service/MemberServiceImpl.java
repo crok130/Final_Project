@@ -53,4 +53,8 @@ public class MemberServiceImpl implements MemberService {
 		return md.getMemberById(memberid);
 	}
 
+	public String profile(MemberVO vo) throws Exception{
+		int result = md.updateMemberName(vo);
+		return result ==1 ? "변경성공" : "실패";
+	}
 }

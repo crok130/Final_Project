@@ -25,12 +25,16 @@
     </style>
 <title>insert title here</title>
 </head>
+<script>
+	let msg = '';
+	
+</script>
 <body>
     <div class="content-box">
       <div class="container">
           <div class="about-trade">
             <div class="container">
-              <form class="write-box" method="POST" action="#" enctype="multipart/form-data">
+              <form class="write-box" method="POST" action="profileupdate" enctype="multipart/form-data">
                 <div class="flex-box">
                   <label class="img-upload">
                     <img src="" alt="프로필이미지" id="imagePreview">
@@ -39,7 +43,7 @@
                   <div>
                     <div class="flex-box column baseline title-box">
                       <label for="nickname">닉네임</label>
-                      <input type="text" name="nickname" placeholder="닉네임" value="최수빈">
+                      <input type="text" name="membername" class="login-input" placeholder="닉네임 입력">
                   </div>
                 <div class="submit-button-box">
                     <button type="submit" style = "margin-left:20px;";>수정완료</button>

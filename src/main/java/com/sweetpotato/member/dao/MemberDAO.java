@@ -47,4 +47,13 @@ public interface MemberDAO {
 
     @Select("SELECT * FROM member WHERE memberid = #{memberid}")
 	MemberVO getMemberById(String memberid) throws Exception;
+    /**
+     * 회원의 이름만 업데이트하는 메서드
+     * @param membername 변경할 회원의 이름
+     * @param memberid 회원의 아이디
+     * @return 업데이트된 행의 수
+     */
+    @Update("UPDATE member SET membername = #{membername} WHERE memberid = #{memberid}")
+    int updateMemberName(MemberVO vo);
+    
 }

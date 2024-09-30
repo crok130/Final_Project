@@ -64,7 +64,7 @@
         <div class="login-container">
             <form action="reg" method="post" class="login-form">
                 <div>
-                    <label for="membername" class="login-label">이름</label>
+                    <label for="membername" class="login-label">이름(닉네임)</label>
                     <input type="text" id="membername" name="membername" class="login-input" required>
                 </div>
                 <div>

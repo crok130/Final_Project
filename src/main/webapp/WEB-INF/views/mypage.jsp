@@ -35,7 +35,7 @@
             </div>
             <div>
             	<!-- 프로필 수정하기 버튼 -->
-                <a href="editProfile">
+                <a href="profile">
                     <button id="edit-profile-button">프로필 수정하기</button>
                 </a>
                 <!-- 비밀번호 수정하기 버튼 -->
