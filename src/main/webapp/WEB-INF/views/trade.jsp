@@ -19,11 +19,12 @@
 <body>
    <%@ include file="nav.jsp" %>
      <div class="content-box">
-      <a href="write">
-        <div class="floating-button">
-          거래글쓰기
-        </div>
-      </a>
+		<a href="<c:if test='${userInfo == null}'>#</c:if><c:if test='${userInfo != null}'>write</c:if>" 
+		   onclick="<c:if test='${userInfo == null}'>showLoginAlert(); return false;</c:if>">
+		    <div class="floating-button">
+		      거래글쓰기
+		    </div>
+		</a>
       <div class="about-trade">
         <div class="container ">
           <div class="trade-text">
@@ -74,11 +75,11 @@
                 </a>
               </div>
               </c:forEach>
-              <c:if test="${fn:length(searchResults) % 4 != 0}">
-				  <c:forEach begin="1" end="${4 - (fn:length(searchResults) % 4)}">
+				<c:if test="${fn:length(popularItems) % 4 != 0}">
+				  <c:forEach begin="1" end="${4 - (fn:length(popularItems) % 4)}">
 				    <div class="card-box empty"></div>
 				  </c:forEach>
-			</c:if>
+				</c:if>
               <!--아래줄부터 상품들록  -->
           </div>
         </div>
@@ -92,7 +93,7 @@
 <script type="text/javascript">
   function showLoginAlert() {
       alert("로그인을 먼저 해주세요.");
-      window.location.href = 'login.jsp';
+      window.location.href = 'login';
   }
 </script>
 	

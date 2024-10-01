@@ -117,31 +117,6 @@
                               <div class="message-text">네안녕하세요</div>
                               <p class="s-text">2024.09.13 2:23PM</p>
                           </div>
-                           <div class="message-box from-me">
-                              <p class="s-text">2024.09.13 2:23PM</p>
-                              <div class="message-text">안녕하세요</div>
-                          </div>
-                          <div class="message-box from-you">
-                              <div class="message-text">네안녕하세요</div>
-                              <p class="s-text">2024.09.13 2:23PM</p>
-                          </div>
-                           <div class="message-box from-me">
-                              <p class="s-text">2024.09.13 2:23PM</p>
-                              <div class="message-text">안녕하세요</div>
-                          </div>
-                          <div class="message-box from-you">
-                              <div class="message-text">네안녕하세요</div>
-                              <p class="s-text">2024.09.13 2:23PM</p>
-                          </div>
-                          
-                        	<div class="message-box from-me">
-                              <p class="s-text">2024.09.13 2:23PM</p>
-                              <div class="message-text">안녕하세요</div>
-                          </div>
-                          <div class="message-box from-you">
-                              <div class="message-text">네안녕하세요</div>
-                              <p class="s-text">2024.09.13 2:23PM</p>
-                          </div>
                 	</div>
 
                   <div class="chat-container">
@@ -154,6 +129,7 @@
 
             <form class="chat-input">
               <textarea name="" id="message-textarea" cols="30" rows="10" placeholder="메세지를 입력해주세요"></textarea>
+              <input type="hidden" name="boardno" value="${boardno}"/> <!-- boardno 파라미터 추가 -->
               <div>
                 <button id="sendButton">전송</button>
               </div>
@@ -164,6 +140,53 @@
     </div>
    <%@ include file="footer.jsp" %>
     
+
+ <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script>
+    // SockJS 연결 설정
+    var socket = new SockJS('${path}/chatHandler');
+
+    // 소켓이 연결될 때
+    socket.onopen = function() {
+        console.log('SockJS 연결 완료');
+    };
+
+    // 메시지 수신
+    socket.onmessage = function(event) {
+        const messageData = JSON.parse(event.data); // 수신한 메시지를 JSON으로 파싱
+
+        // 메시지 표시하는 로직 추가
+        document.querySelector('.chat-container').innerHTML += `
+            <div class="message-box from-you">
+                <div class="message-text">${messageData.message}</div>
+            </div>
+        `;
+    };
+
+    // 전송 버튼 클릭 시 메시지 전송
+    document.getElementById('sendButton').onclick = function(e) {
+        e.preventDefault(); // 기본 폼 제출 방지
+        let messageTextarea = document.getElementById('message-textarea');
+        let message = messageTextarea.value.trim(); // 메시지 내용
+
+        if (message) {
+
+            // 메시지 전송
+            socket.send(JSON.stringify({
+                message: message,
+                user: '${userInfo.memberid}' // 보낸 사람의 이름 추가
+            }));
+
+            // 나의 메시지 표시
+            document.querySelector('.chat-container').innerHTML += `
+                <div class="message-box from-me">
+                    <div class="message-text">${message}</div>
+                </div>
+            `;
+            messageTextarea.value = ''; // 텍스트 영역 초기화
+        }
+    };
+</script>
   </body>
 
 </html>

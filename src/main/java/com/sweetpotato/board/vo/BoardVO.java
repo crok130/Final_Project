@@ -8,7 +8,7 @@ import lombok.Data;
 public class BoardVO {
 
 	private int boardno;
-	private String memberno;
+	private int memberno;
 	private String main_category;
 	private String sub_category;
 	private int price;

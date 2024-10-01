@@ -9,18 +9,18 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sweetpotato.board.service.BoardService;
 import com.sweetpotato.board.vo.BoardVO;
+import com.sweetpotato.member.vo.MemberVO;
 
 import lombok.RequiredArgsConstructor;
 	
@@ -53,9 +53,19 @@ import lombok.RequiredArgsConstructor;
 	    // 게시글 작성 받는 post매핑
 	    @PostMapping("write")
 	    public void write(BoardVO vo,
-                @RequestPart("imgs") List<MultipartFile> multipartFile
+                @RequestPart("imgs") List<MultipartFile> multipartFile,
+                HttpSession session
                ) throws Exception {
 
+	        MemberVO member = (MemberVO) session.getAttribute("userInfo");
+	        
+	        if (member == null) {
+	            // 로그인이 되어있지 않은 경우 처리 (예: 로그인 페이지로 리다이렉트)
+	            throw new IllegalStateException("로그인이 필요합니다.");
+	        }
+
+	        // 게시글 작성자 정보 설정 (예시: 작성자 ID 또는 이름)
+	        vo.setMemberno(member.getMemberno());
 		  // 동적으로 파일 저장 경로 설정
 			  String path = servletContext.getRealPath("\\resources\\imgs\\");
 			  System.out.println(path);

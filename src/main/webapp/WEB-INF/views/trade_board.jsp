@@ -102,12 +102,14 @@
                 </a>
                 <button class="orange" onclick="openChatroom()">채팅보기</button>
               </div>
-              
+              <form action="chat" method="get">
+                <input type="hidden" name="boardno" value="${boardVO.boardno}">
+    			<input type="hidden" name="memberno" value="${boardVO.memberno}">
               <div class="button-box">
-                <button class="orange" onclick="openChatroom()">채팅하기</button>
+               	<button class="orange">채팅하기</button>
               </div>
-              
-
+              </form>
+	
             </div>
             <hr class="line">
             <div class="post-info-box">
@@ -124,7 +126,7 @@
                   ${boardVO.viewcnt}</p>
               </div>
             </div>
-          
+
         </div>
       </div>
     </div>
