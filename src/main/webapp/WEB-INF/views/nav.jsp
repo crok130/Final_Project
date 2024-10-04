@@ -22,9 +22,11 @@
 				<div class="nav-buttons">
 					<a href="trade">
 						<button id="trade-button">중고거래</button>
-					</a> <a href="location">
-						<button id="location-button">동네인증</button>
-					</a>
+					<c:if test="${not empty sessionScope.userInfo}">
+						<a href="location">
+							<button id="location-button">동네인증</button>
+						</a>
+					</c:if>
 
 				</div>
 			</div>
@@ -33,13 +35,14 @@
 					<input type="text" id="search" name="search" class="search"
 						placeholder="물품이나 동네를 검색해보세요" />
 				</form>
-				<a href="chat" class="ghost-button orange">채팅하기</a> <a href="mypage"
-					class="ghost-button">내 페이지</a>
+
 				<c:choose>
 					<c:when test="${empty sessionScope.userInfo}">
 						<a href="login" class="ghost-button" style="color: #1e1e1e">로그인</a>
 					</c:when>
 					<c:otherwise>
+									<a href="chat" class="ghost-button orange">채팅하기</a> <a href="mypage"
+					class="ghost-button">내 페이지</a>
 						<span style="color: black;">${userInfo.membername}님 반갑습니다.</span>
 						<a href="logout">로그아웃</a>
 					</c:otherwise>

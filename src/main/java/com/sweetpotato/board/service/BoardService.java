@@ -32,4 +32,19 @@ public interface BoardService {
 
 	
 	List<BoardVO> searchlist(String search);
+
+	
+	void delete(int boardno);
+
+	
+	
+	void update(BoardVO vo) throws Exception;
+
+	List<BoardVO> getBoardsByMemberno(int memberno);
+
+
+
+	
+	
+
 }

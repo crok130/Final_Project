@@ -25,11 +25,6 @@ button, a, link{
     display: block;
 }
 
-.card-box.empty {
-    visibility: hidden; /* 보이지 않는 빈 카드를 추가해서 4개의 칸을 채움 */
-}
-
-
 .hide{
     display: none;
 }

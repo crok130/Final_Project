@@ -85,9 +85,9 @@
         </div>
       </div>
       
-      <div class="link-container">
-        <a class='more-link' href="?page=all#sec8" >더보기</a>
-      </div>
+	<div class="link-container">
+	    <a class='more-link' href="?page=all&offset=${fn:length(popularItems)}">더보기</a>
+	</div>
       
     </div>
 <script type="text/javascript">

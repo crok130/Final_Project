@@ -17,8 +17,6 @@ body {
 /* 사용자 프로필 스타일링 */
 
 #user-profile {
-
-
     background-color: #fff;
     border: 1px solid #ddd;
     padding: 20px;
@@ -198,9 +196,7 @@ a{
   }
 
 /* 프로필 변경 버튼 */
-
 #edit-profile-button{
-
     background-color: #FF6F0F; /* 버튼 배경색 */
     color: #fff; /* 텍스트 색상 */
     margin-top: 25px;

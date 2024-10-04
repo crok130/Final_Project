@@ -82,29 +82,20 @@
                 </div>
 
               <!--물품정보-->
-              <div class="goods-box flex-box between">
-                <div class="flex-box">
-                  <div class="selected-thumbnail-box">
-                    <img src="" alt="상품사진">
-                  </div>
-                  <div class="goods-info-box">
-                    <p>제목</p>
-                    <p class="bold">가격</p>
-                  </div>
-                </div>
+			<div class="goods-box flex-box between">
+			    <div class="flex-box">
+			        <div class="selected-thumbnail-box">
+			            <img src="${pageContext.request.contextPath}/resources/imgs/${boardVO.img}" alt="상품사진">
+			        </div>
+			        <div class="goods-info-box">
+			            <p>${boardVO.title}</p> <!-- 제목 출력 -->
+			            <p class="bold">${boardVO.price} 원</p> <!-- 가격 출력 -->
+			        </div>
+			    </div>
+			</div>
 
 
-                    <form method="post" action="{% url 'confirm_deal' product.id %}">
-
-                          <button type="submit">거래확정하기</button>
-                    </form>
-
-                    <button type="button">거래완료</button>
-
-
-                    <button type="button">거래진행중</button>
-                  <button type="button">거래완료</button>
-
+        
               </div>
 
               <!--채팅창 메인-->
@@ -119,13 +110,7 @@
                           </div>
                 	</div>
 
-                  <div class="chat-container">
-                            <div class="message-box from-you">
-                              <div class="message-text">
-                                <p>물건 거래가 완료되었습니다. 리뷰 작성을 원하신다면 <a href="#"> "여기를 클릭하세요" </a></p>
-                              </div>
-                            </div>
-             		</div>
+              
 
             <form class="chat-input">
               <textarea name="" id="message-textarea" cols="30" rows="10" placeholder="메세지를 입력해주세요"></textarea>
@@ -139,54 +124,6 @@
       </div>
     </div>
    <%@ include file="footer.jsp" %>
-    
 
- <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-<script>
-    // SockJS 연결 설정
-    var socket = new SockJS('${path}/chatHandler');
-
-    // 소켓이 연결될 때
-    socket.onopen = function() {
-        console.log('SockJS 연결 완료');
-    };
-
-    // 메시지 수신
-    socket.onmessage = function(event) {
-        const messageData = JSON.parse(event.data); // 수신한 메시지를 JSON으로 파싱
-
-        // 메시지 표시하는 로직 추가
-        document.querySelector('.chat-container').innerHTML += `
-            <div class="message-box from-you">
-                <div class="message-text">${messageData.message}</div>
-            </div>
-        `;
-    };
-
-    // 전송 버튼 클릭 시 메시지 전송
-    document.getElementById('sendButton').onclick = function(e) {
-        e.preventDefault(); // 기본 폼 제출 방지
-        let messageTextarea = document.getElementById('message-textarea');
-        let message = messageTextarea.value.trim(); // 메시지 내용
-
-        if (message) {
-
-            // 메시지 전송
-            socket.send(JSON.stringify({
-                message: message,
-                user: '${userInfo.memberid}' // 보낸 사람의 이름 추가
-            }));
-
-            // 나의 메시지 표시
-            document.querySelector('.chat-container').innerHTML += `
-                <div class="message-box from-me">
-                    <div class="message-text">${message}</div>
-                </div>
-            `;
-            messageTextarea.value = ''; // 텍스트 영역 초기화
-        }
-    };
-</script>
   </body>
-
 </html>

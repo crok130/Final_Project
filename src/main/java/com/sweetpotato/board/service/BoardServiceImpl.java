@@ -15,11 +15,13 @@ public class BoardServiceImpl implements BoardService{
 	
 	private final BoardDAO dao;
 	
+	
 	@Override
 	public void regist(BoardVO vo) throws Exception {
 		dao.create(vo);
 	}
-
+	
+ 
 	@Override
 	public void updateCnt(int boardno) throws Exception {
 		
@@ -39,6 +41,28 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardVO> searchlist(String search) {
 	    return dao.searchlist(search);
 	}
+
+	@Override
+	public void delete(int boardno) {
+		dao.delete(boardno);
+		
+	}
+
+	
+	
+	@Override
+	       
+	public void update(BoardVO vo) throws Exception{
+		dao.update(vo);
+		
+	}
+
+
+	@Override
+	public List<BoardVO> getBoardsByMemberno(int memberno) {
+		return dao.selectList(memberno);
+	}
+	
 	
 
 

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,6 +32,47 @@ import lombok.RequiredArgsConstructor;
 	    private final BoardService bs;
 	    private final ServletContext servletContext; 
 	
+	    
+	    @GetMapping("rewrite")
+	    public String rewrite(@RequestParam("boardno") int boardno, Model model) throws Exception {
+	        BoardVO vo = bs.read(boardno);
+	        model.addAttribute("boardVO", vo);
+	        return "rewrite";
+	    }
+
+	    @PostMapping("update")
+	    public String update(BoardVO vo,
+	                         @RequestPart("imgs") List<MultipartFile> multipartFile,
+	                         HttpSession session) throws Exception {
+
+	        MemberVO member = (MemberVO) session.getAttribute("userInfo");
+
+	        if (member == null) {
+	            throw new IllegalStateException("로그인이 필요합니다.");
+	        }
+
+	        vo.setMemberno(member.getMemberno());
+
+	        String path = servletContext.getRealPath("\\resources\\imgs\\");
+	        System.out.println(path);
+
+	        if (!multipartFile.isEmpty()) {
+	            StringBuilder imgFilenames = new StringBuilder();
+	            for (MultipartFile mpr : multipartFile) {
+	                String orgFilename = mpr.getOriginalFilename();
+	                String uniqueFilename = UUID.randomUUID().toString() + "_" + orgFilename;
+	                File targetFile = new File(path + File.separator + uniqueFilename);
+	                mpr.transferTo(targetFile);
+	                imgFilenames.append(uniqueFilename).append(",");
+	            }
+	            vo.setImg(imgFilenames.substring(0, imgFilenames.length() - 1));
+	        }
+
+	        bs.update(vo);
+	        return "redirect:/trade_board?boardno=" + vo.getBoardno();
+	    }
+	    
+	    
 	    @GetMapping("write")
 	    public void write() throws Exception {
 	        // write.jsp 페이지를 반환
@@ -99,4 +141,26 @@ import lombok.RequiredArgsConstructor;
 	        return "search";  
 	    }
 	    
+	    @GetMapping("/mypage")
+	    public String myPage(HttpSession session, Model model) {
+	        MemberVO userInfo = (MemberVO) session.getAttribute("userInfo");
+
+	        if (userInfo != null) {
+	            int memberno = userInfo.getMemberno();
+	            // memberno로 게시물 목록 조회
+	            List<BoardVO> myBoardList = bs.getBoardsByMemberno(memberno);
+	            System.out.println(myBoardList);
+	            model.addAttribute("myBoardList", myBoardList);  // 게시물 목록을 JSP로 전달
+	        }
+
+	        return "mypage";
+	    }
+	    
+	    @PostMapping("deleteBoard")
+	    public String deleteBoard(int boardno) throws Exception {
+	    	bs.delete(boardno);
+	    	return "redirect:/trade";
+	    }
+	    
+	        
 	}

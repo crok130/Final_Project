@@ -1,15 +1,11 @@
 .login-container{
-
 	margin-top: 100px;
 	width: 440px;
-
     min-height: 100dvh;
     display: flex;
     justify-content: center;
     flex-direction: column;
-
     /*margin: auto;*/
-
 }
 
 
@@ -22,6 +18,7 @@
 }
 
 .login-form{
+	margin-top: 10px;
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -64,7 +61,6 @@ button:hover{
     text-decoration: none;
     color: #ff823f;
     cursor: pointer;
-
 }
 
 .login-options {
@@ -91,4 +87,3 @@ button:hover{
 .login-forgot-link:hover {
     text-decoration: underline;
 }
-

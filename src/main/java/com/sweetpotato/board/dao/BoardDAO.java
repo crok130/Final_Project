@@ -2,10 +2,15 @@ package com.sweetpotato.board.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sweetpotato.board.vo.BoardVO;
+import com.sweetpotato.util.Criteria;
+
+
 
 public interface BoardDAO {
 
@@ -33,5 +38,20 @@ public interface BoardDAO {
 	
 	@Select("SELECT * FROM board WHERE title LIKE CONCAT('%', #{search}, '%')")
 	List<BoardVO> searchlist(String search);
+
+	@Delete("DELETE FROM board WHERE boardno = #{boardno}")
+	void delete(int boardno);
+
+	@Select("SELECT * FROM board ORDER BY boardno DESC LIMIT #{limit} OFFSET #{offset}")
+	List<BoardVO> listAllWithPaging(int offset, int limit) throws Exception;
+
+	
+    @Update("UPDATE board SET title = #{title}, price = #{price}, content = #{content}, region = #{region}, img = #{img} WHERE boardno = #{boardno}")
+    void update(BoardVO vo) throws Exception;
+
+    @Select("SELECT * FROM board WHERE memberno = #{memberno}")
+	List<BoardVO> selectList(int memberno);
+
+
     
 }

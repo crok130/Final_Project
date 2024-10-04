@@ -1,45 +1,54 @@
 package com.sweetpotato.chat.handler;
 
+import java.util.Hashtable;
+import java.util.Map;
+
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.sweetpotato.chat.vo.ChatVO;
 
-public class UserChatHandler extends TextWebSocketHandler {
 
-    private final Map<Integer, WebSocketSession> sessionMap = new HashMap<>();
 
-    @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        Integer memberno = (Integer) session.getAttributes().get("memberno");
-        sessionMap.put(memberno, session);
-    }
+public class UserChatHandler extends TextWebSocketHandler{
+	
+	private Map<WebSocketSession, ChatVO> sessionMap = new Hashtable<>();
 
-    @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        Integer memberno = (Integer) session.getAttributes().get("memberno");
-        System.out.println("1 : " +memberno);
-        String msg = message.getPayload();
-        
-        // 메시지를 보낸 사용자에게 전달
-        sessionMap.values().forEach(ses -> {
-            try {
-                ses.sendMessage(new TextMessage(msg));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        
-        // Messages 테이블에 메시지 저장 로직 추가
-        // chatService.saveMessage(chatId, memberno, msg);
-    }
+	@Override
+	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+		String sessionId = session.getId();
+		ChatVO vo = new ChatVO();
+		vo.setSessionId(sessionId);
+		sessionMap.put(session, vo);
+		System.out.println("Connection : "+sessionMap);
+	}
 
-    @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        Integer memberno = (Integer) session.getAttributes().get("memberno");
-        sessionMap.remove(memberno);
-    }
+	@Override
+	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+		String sessionId = session.getId();
+		String msg = message.getPayload();
+		System.out.println("sessionId : " + sessionId);
+		System.out.println("msg : " + msg);
+		
+		for(WebSocketSession ses : sessionMap.keySet()) {
+			ses.sendMessage(new TextMessage(msg));
+		}
+	}
+
+	@Override
+	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		sessionMap.remove(session);
+	}
+	
+	
+
 }
+
+
+
+
+
+
+

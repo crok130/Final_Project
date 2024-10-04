@@ -40,9 +40,10 @@
       <div id="map" style="width:100%; height:468px; margin-top:44px;"></div>
       <h5 id="region-info">현재 위치</h5>
       <h5 id="region-judge"></h5>
-      <form id="region-certification-form" action="/set_region_certification/" class="full-box">
-        <button id="region-save-button" class="primary-button">동네인증하기</button>
-      </form>
+		<form id="region-certification-form" action="set_region_certification" method="POST" class="full-box">
+		  <input type="hidden" id="simplified-current-location" name="simplifiedCurrentLocation" value=""/>
+		  <button id="region-save-button" class="primary-button">동네인증하기</button>
+		</form>
     </div>
   </div>
   <footer><%@ include file="footer.jsp" %></footer>
@@ -85,7 +86,47 @@ function displayMarker(locPosition, message) {
 
 
 document.getElementById("region-form").addEventListener("submit", function (e) {
-  e.preventDefault();
+	function GetAddr(lat, lon) {
+		  let coord = new kakao.maps.LatLng(lat, lon);
+		  let callback = function (result, status) {
+		    if (status === kakao.maps.services.Status.OK) {
+		      let currentLocation = result[0].address.address_name;
+
+		      // 현재 위치에서 "시/도 + 구 + 동"까지만 추출
+		      let currentLocationArray = currentLocation.split(" ");
+		      let simplifiedCurrentLocation = currentLocationArray.slice(0, 3).join(" ");
+		      
+		      // UI 업데이트
+		      document.getElementById("region-info").innerText =
+		        "현재위치는 " + simplifiedCurrentLocation + "입니다.";
+
+		      // 숨겨진 필드에 simplifiedCurrentLocation 값을 설정
+		      document.getElementById("simplified-current-location").value = simplifiedCurrentLocation;
+
+		      // 사용자가 입력한 지역 가져오기
+		      let regionSettingValue = document.querySelector(
+		        'input[name="region-setting"]'
+		      ).value;
+
+		      // 입력한 지역에서 "시/도 + 구 + 동"까지만 추출
+		      let regionArray = regionSettingValue.split(" ");
+		      let simplifiedRegionSettingValue = regionArray.slice(0, 3).join(" ");
+
+		      // UI에 표시할 텍스트
+		      let regionJudgeText = document.getElementById("region-judge");
+
+		      // 현재 위치와 사용자가 입력한 지역 비교
+		      if (simplifiedCurrentLocation === simplifiedRegionSettingValue) {
+		        regionJudgeText.innerText = "현재 위치가 내 동네 설정과 같습니다.";
+		        regionSaveButton.classList.remove("button-disabled"); // disabled 상태 해제
+		      } else {
+		        regionJudgeText.innerText = "현재 위치가 내 동네 설정과 다릅니다.";
+		        regionSaveButton.classList.add("button-disabled"); // disabled 상태 유지
+		      }
+		    }
+		  };
+		  geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+		}  e.preventDefault();
 
   let region = document.querySelector('input[name="region-setting"]').value;
 
@@ -103,34 +144,64 @@ regionSaveButton.addEventListener("click", function () {
 userMap();
 function userMap() {
 	  if (navigator.geolocation) {
-	    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-	    navigator.geolocation.getCurrentPosition(
-	      function (position) {
-	        let lat = position.coords.latitude; // 위도
-	        let lon = position.coords.longitude; // 경도
+	    navigator.geolocation.getCurrentPosition(function (position) {
+	      let lat = position.coords.latitude; // 위도
+	      let lon = position.coords.longitude; // 경도
 
-	        let locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-	          message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용입니다
+	      let locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성
+	        message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용
 
-	        // 마커와 인포윈도우를 표시합니다
-	        displayMarker(locPosition, message);
+	      // 마커와 인포윈도우 표시
+	      displayMarker(locPosition, message);
 
-	        // 위치 정보를 주소로 변환하여 표시
-	        GetAddr(lat, lon);
-	      },
-	      function (error) {
-	        console.error("위치 정보를 가져오는 데 실패했습니다.", error);
-	      },
-	      {
-	        enableHighAccuracy: true, // 위치 정보를 더 정확하게 가져옵니다
-	        timeout: 5000, // 5초 이내에 위치 정보를 가져오지 못하면 오류 발생
-	        maximumAge: 0, // 캐시된 위치 정보 사용 안함
+	      let geocoder = new kakao.maps.services.Geocoder();
+
+	      // 현재 위치 주소 가져오기
+	      function GetAddr(lat, lon) {
+	        let coord = new kakao.maps.LatLng(lat, lon);
+	        let callback = function (result, status) {
+	          if (status === kakao.maps.services.Status.OK) {
+	            let currentLocation = result[0].address.address_name;
+
+	            // 현재 위치에서 "시/도 + 구 + 동"까지만 추출
+	            let currentLocationArray = currentLocation.split(" ");
+	            let simplifiedCurrentLocation = currentLocationArray.slice(0, 3).join(" ");
+	            
+	            // UI 업데이트
+	            document.getElementById("region-info").innerText =
+	              "현재위치는 " + simplifiedCurrentLocation + "입니다.";
+
+	            // 사용자가 입력한 지역 가져오기
+	            let regionSettingValue = document.querySelector(
+	              'input[name="region-setting"]'
+	            ).value;
+
+	            // 입력한 지역에서 "시/도 + 구 + 동"까지만 추출
+	            let regionArray = regionSettingValue.split(" ");
+	            let simplifiedRegionSettingValue = regionArray.slice(0, 3).join(" ");
+
+	            // UI에 표시할 텍스트
+	            let regionJudgeText = document.getElementById("region-judge");
+
+	            // 현재 위치와 사용자가 입력한 지역 비교
+	            if (simplifiedCurrentLocation === simplifiedRegionSettingValue) {
+	              regionJudgeText.innerText = "현재 위치가 내 동네 설정과 같습니다.";
+	              regionSaveButton.classList.remove("button-disabled"); // disabled 상태 해제
+	            } else {
+	              regionJudgeText.innerText = "현재 위치가 내 동네 설정과 다릅니다.";
+	              regionSaveButton.classList.add("button-disabled"); // disabled 상태 유지
+	            }
+	          }
+	        };
+	        geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
 	      }
-	    );
+	      GetAddr(lat, lon);
+	    });
 	  } else {
-	    // GeoLocation을 사용할 수 없을 때
+	    // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용 설정
 	    let locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
 	      message = "사용자 환경문제로 위치정보를 사용할 수 없습니다";
+
 	    displayMarker(locPosition, message);
 	  }
 	}

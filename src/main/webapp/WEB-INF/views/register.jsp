@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -65,7 +64,7 @@
         <div class="login-container">
             <form action="reg" method="post" class="login-form">
                 <div>
-                    <label for="membername" class="login-label">이름</label>
+                    <label for="membername" class="login-label">이름(닉네임)</label>
                     <input type="text" id="membername" name="membername" class="login-input" required>
                 </div>
                 <div>
@@ -109,4 +108,3 @@
     <%@ include file="footer.jsp"%>
 </body>
 </html>
-

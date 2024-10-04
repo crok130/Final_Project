@@ -1,30 +1,34 @@
 package com.sweetpotato.region.controller;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.sweetpotato.member.vo.MemberVO;
+import com.sweetpotato.region.service.regionservice;
+
+import lombok.RequiredArgsConstructor;
+
 @Controller
-@SessionAttributes("region")
+@RequiredArgsConstructor
 public class RegionController {
 
-    // POST 요청을 받아 동네 정보를 세션에 저장
-    @PostMapping("set_region")
-    public String setRegion(@RequestParam("region-setting") String regionSetting, HttpSession session) {
-        // 지역 설정 값을 세션에 저장
-        session.setAttribute("region", regionSetting);
-        
-        // 처리 후 다시 원래 페이지로 리다이렉트
-        return "redirect:/location";  // "region" 페이지는 지역 설정 화면입니다.
-    }
+    
+    final private regionservice reg;
 
-    // 필요 시 세션 초기화 (예를 들어 인증 후 초기화)
-    @PostMapping("/clear_region")
-    public String clearRegion(SessionStatus sessionStatus) {
-        sessionStatus.setComplete();
-        return "redirect:/location";
+    @PostMapping("set_region_certification")
+    public String setRegionCertification(@RequestParam("simplifiedCurrentLocation") String simplifiedCurrentLocation, HttpSession session) {
+        // 세션에서 로그인한 유저 정보 가져오기
+        MemberVO userInfo = (MemberVO) session.getAttribute("userInfo");
+
+        // 사용자가 입력한 지역 설정
+        userInfo.setMemberaddr(simplifiedCurrentLocation);
+        // DB에 업데이트
+        reg.updateMemberAddress(userInfo);
+
+        return "main"; // 인증 후 리다이렉트 페이지
     }
 }
-

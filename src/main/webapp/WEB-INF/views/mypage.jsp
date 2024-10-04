@@ -1,6 +1,7 @@
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -45,33 +46,43 @@
                 </ul>
             </section>
             <!-- 판매 물품 -->
-            <div id="proceed-products-tab">
-                <div class="container column center">
-                  <div class="full-box trade-box column">
-                    <div class="flex-box full-box card-container between">
-                        <div class="card-box">
-                          <a href="#" class="trade-text-link">
-                              <div class="card-img">
-                                      <img src="" alt="판매완료상품이미지">   
-                              </div>
-                              <div class="card-info-box">
-                                  <h5>2000원팝니다</h5>
-                                  <p class="bold">2500원</p>
-                                  <p>부산광안리</p>
-                                  <div class="flex-box">
-                                      <p>조회 30</p>
-                                      <p>·</p>
-                                      <p>채팅 4</p>
-                                  </div>
-                              </div>
-                          </a>
-                        </div>
-                      
-            
-                    </div>
-                  </div>
-                </div>
-              </div>
+			<div id="proceed-products-tab">
+			    <div class="container column center">
+			        <div class="full-box trade-box column">
+			            <div class="flex-box full-box card-container between">
+			                <c:forEach var="board" items="${myBoardList}">
+			                    <div class="card-box">
+			                        <a href="tradePost?boardno=${board.boardno}" class="trade-text-link">
+			                            <div class="card-img">
+			                                <c:set var="firstCommaIndex" value="${fn:indexOf(board.img, ',')}" />
+			                                <c:choose>
+			                                   
+			                                    <c:when test="${firstCommaIndex == -1}">
+			                                        <img src="${pageContext.request.contextPath}/resources/imgs/${board.img}" alt="판매완료상품이미지">
+			                                    </c:when>
+			                               
+			                                    <c:otherwise>
+			                                        <img src="${pageContext.request.contextPath}/resources/imgs/${fn:substring(board.img, 0, firstCommaIndex)}" alt="판매완료상품이미지">
+			                                    </c:otherwise>
+			                                </c:choose>
+			                            </div>
+			                            <div class="card-info-box">
+			                                <h5>${board.title}</h5>
+			                                <p class="bold">${board.price}원</p>
+			                                <p>${board.region}</p>
+			                                <div class="flex-box">
+			                                    <p>조회 ${board.viewcnt}</p>
+			                                    <p>·</p>
+			                                    <p>채팅 50</p> 
+			                                </div>
+			                            </div>
+			                        </a>
+			                    </div>
+			                </c:forEach>
+			            </div>
+			        </div>
+			    </div>
+			</div>
              <!-- 판매완료 물품 -->
               <div id="products-tab" style="display: none;">
                 <div class="container column center">

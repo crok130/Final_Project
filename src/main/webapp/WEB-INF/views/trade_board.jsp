@@ -90,23 +90,37 @@
 			</div>
             <div class="flex-box between info-button-box">
               <div class="user-info">
-                <h6>최수빈</h6>
-                <p>부산</p>
+                <h6>이름</h6>
+                <p>주소</p>
               </div>
               <div class="flex-box button-box">
-                <a href="#">
-                  <button class="grey">수정하기</button>
-                </a>
-                <a href="#" onclick="return confirmDelete();"> <!-- 삭제하기 버튼 링크 추가 -->
-                  <button class="grey" data-post-id="#">삭제하기</button>
-                </a>
+              <c:if test="${userInfo.memberno == boardVO.memberno}">
+				    <a href="${pageContext.request.contextPath}/rewrite?boardno=${boardVO.boardno}">
+				        <button class="grey">수정하기</button>
+				    </a>
+				</c:if>
+				    
+				<c:if test="${userInfo.memberno == boardVO.memberno}">
+				    <button class="grey" onclick="deleteBoard(${boardVO.boardno})">삭제하기</button>
+				</c:if>
+				<c:if test="${userInfo.memberno == boardVO.memberno}">
                 <button class="orange" onclick="openChatroom()">채팅보기</button>
+                </c:if>
               </div>
               <form action="chat" method="get">
                 <input type="hidden" name="boardno" value="${boardVO.boardno}">
     			<input type="hidden" name="memberno" value="${boardVO.memberno}">
               <div class="button-box">
-               	<button class="orange">채팅하기</button>
+              
+			  <form action="chat" method="get">
+			    <input type="hidden" name="boardno" value="${boardVO.boardno}"/>
+			    <input type="hidden" name="memberno" value="${boardVO.memberno}"/>
+			    <input type="hidden" name="title" value="${boardVO.title}"/> <!-- 제목 추가 -->
+			    <input type="hidden" name="price" value="${boardVO.price}"/> <!-- 가격 추가 -->
+			    <div class="button-box">
+			        <button class="orange">채팅하기</button>
+			    </div>
+			</form>
               </div>
               </form>
 	
@@ -131,6 +145,38 @@
       </div>
     </div>
      <%@ include file="footer.jsp" %>
+<script>
+function deleteBoard(boardno) {
+    if (confirm('정말 삭제하시겠습니까?')) {
+        // AJAX 요청을 사용하여 삭제 요청 전송
+        fetch('${pageContext.request.contextPath}/deleteBoard', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({
+                boardno: boardno
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                // 삭제 성공 시 리다이렉트 처리
+                alert('삭제가 완료되었습니다.');
+                window.location.href = '${pageContext.request.contextPath}/trade';
+            } else {
+                // 실패 시 메시지 출력
+                alert('삭제에 실패했습니다.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('서버 오류로 인해 삭제가 실패했습니다.');
+        });
+    }
+}
+</script>
+
+
 
 </body>
 </html>

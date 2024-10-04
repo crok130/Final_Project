@@ -83,21 +83,6 @@ public class MemberController {
         return "profile";
     }
 
-    // 마이페이지 요청
-    @GetMapping("mypage")
-    public String mypage(Model model, HttpSession session) {
-        // 세션에서 사용자 정보를 가져옵니다.
-        MemberVO userInfo = (MemberVO) session.getAttribute("userInfo");
-
-        // userInfo가 null이 아닐 경우에만 모델에 추가합니다.
-        if (userInfo != null) {
-            // model.addAttribute("userInfo", userInfo); // 모델에 사용자 정보 추가
-            return "mypage"; // JSP 파일명
-        } else {
-            // 사용자가 로그인하지 않았을 경우 로그인 페이지로 리다이렉트
-            return "redirect:/login"; // 로그인 페이지로 리다이렉트
-        }
-    }
 
     // 비밀번호 재설정 페이지 요청
     @GetMapping("passwordResetPage")
